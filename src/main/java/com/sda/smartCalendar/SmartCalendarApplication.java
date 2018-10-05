@@ -8,5 +8,7 @@ public class SmartCalendarApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SmartCalendarApplication.class, args);
+
+
 	}
 }
