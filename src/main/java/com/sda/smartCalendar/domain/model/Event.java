@@ -4,10 +4,13 @@ package com.sda.smartCalendar.domain.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @Entity
@@ -16,8 +19,13 @@ import java.time.LocalDateTime;
 public class Event {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @Type(type = "uuid-char")
+    private UUID id;
 
     @Column
     private String name;
@@ -27,9 +35,13 @@ public class Event {
 
     @Column
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private LocalDateTime date;
+    private LocalDateTime event_start;
 
     @Column
-    private Duration duration;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDateTime event_finish;
+
+
+
 
 }

@@ -1,0 +1,21 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+   http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet author="Emila" id="101-01">
+        <sqlFile dbms="h2"
+                 encoding="utf8"
+                 path="01_create_event_table.sql"/>
+    </changeSet>
+    <changeSet author="Emila" id="101-02">
+        <sqlFile dbms="h2"
+                 encoding="utf8"
+                 path="02_insert_first_event.sql"/>
+    </changeSet>
+
+</databaseChangeLog>
