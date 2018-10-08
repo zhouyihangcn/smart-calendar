@@ -18,4 +18,5 @@
                  path="02_insert_first_event.sql"/>
     </changeSet>
 
+
 </databaseChangeLog>
