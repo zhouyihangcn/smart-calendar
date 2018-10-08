@@ -17,5 +17,19 @@
                  encoding="utf8"
                  path="02_insert_first_event.sql"/>
     </changeSet>
-
+    <changeSet author="Gosia" id="101-03">
+        <sqlFile dbms="h2"
+                 encoding="utf8"
+                 path="03_create_user_table.sql"/>
+    </changeSet>
+    <changeSet author="Gosia" id="101-04">
+        <sqlFile dbms="h2"
+                 encoding="utf8"
+                 path="04_create_role_table.sql"/>
+    </changeSet>
+    <changeSet author="Gosia" id="101-05">
+        <sqlFile dbms="h2"
+                 encoding="utf8"
+                 path="05_users_roles.sql"/>
+    </changeSet>
 </databaseChangeLog>
