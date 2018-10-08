@@ -1,6 +1,5 @@
 package com.sda.smartCalendar.repository;
 
-import com.sda.smartCalendar.controller.UserRegistration;
 import com.sda.smartCalendar.domain.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 

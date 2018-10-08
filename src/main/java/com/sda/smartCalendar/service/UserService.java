@@ -13,7 +13,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.security.Principal;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -23,8 +22,8 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     UserRepository userRepository;
-//
-@Autowired
+
+    @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
@@ -50,15 +49,6 @@ public class UserService implements UserDetailsService {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setRoles(Arrays.asList(new Role("ROLE_USER")));
         return userRepository.save(user);
-    }
-
-    @PostConstruct
-    public void addDefaultUser() {
-        //hasło:1234
-        User user = new User();
-        user.setNick("Freddy");
-        user.setPassword("$2a$10$BP4JxTYMBM7IqVF5HGX/lOMpZd4vpzX6u6y1H/auzhtveAujeb8le");
-        userRepository.save(user);
     }
 
 }
