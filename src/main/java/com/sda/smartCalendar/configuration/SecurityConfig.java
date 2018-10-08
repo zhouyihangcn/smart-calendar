@@ -2,7 +2,6 @@ package com.sda.smartCalendar.configuration;
 
 import com.sda.smartCalendar.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.h2.H2ConsoleProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -10,12 +9,11 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-//
+
 @Configuration
-public class SecurityConfigur extends WebSecurityConfigurerAdapter {
-//
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
     @Autowired
     private UserService userService;
 
@@ -36,16 +34,6 @@ public class SecurityConfigur extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.headers().frameOptions().disable();
 
-
-        //Do uzuniecia
-       // String path = this.console.getPath();
-        //String antPattern = (path.endsWith("/") ? path + "**" : path + "/**");
-      // HttpSecurity h2Console = http.antMatcher(antPattern);
-//        h2Console.csrf().disable();
-//        h2Console.httpBasic();
-//        h2Console.headers().frameOptions().sameOrigin();
-        // config as you like
-        //http.authorizeRequests().anyRequest().permitAll();
     }
 
     @Bean
@@ -65,24 +53,5 @@ public class SecurityConfigur extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider());
     }
-
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.inMemoryAuthentication()
-//                .withUser("user").password("password").roles("USER")
-//                .and()
-//                .withUser("manager").password("password").roles("MANAGER");
-//    }
 }
 
-
-
-
-
-//    @Configuration
-//    class SecurityConfigSecured extends WebSecurityConfigurerAdapter {
-//        private UserService service;
-//    }
-//
-//    @Configuration
-//    class SecurityConfigUnsecured{}

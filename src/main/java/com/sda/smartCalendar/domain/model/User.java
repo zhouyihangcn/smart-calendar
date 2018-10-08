@@ -1,23 +1,38 @@
-package com.sda.smartCalendar.model;
+package com.sda.smartCalendar.domain.model;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
+
+
+
+
 
 @Data
+@Entity
 @NoArgsConstructor
-//@EqualsAndHashCode(exclude = {"posts", "comments", "roles"})
-//@ToString(exclude = {"posts", "comments", "roles"})
-public class User {
+@AllArgsConstructor
+@EqualsAndHashCode(exclude = {"roles"})
+@ToString(exclude = {"roles"})
+public class User  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
+    @Column
     private String nick;
+
+    @Column
     private String password;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "role_id", referencedColumnName = "id"))
+    private Collection<Role> roles;
 }
