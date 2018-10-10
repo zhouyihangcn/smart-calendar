@@ -31,8 +31,7 @@ public class UserController {
     public String root() {
         return "index";
     }
-
-    @GetMapping("/registration")
+        @GetMapping("/registration")
     public String showRegistrationForm() {
         return "registration";
     }

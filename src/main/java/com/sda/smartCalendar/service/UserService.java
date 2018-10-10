@@ -2,7 +2,7 @@ package com.sda.smartCalendar.service;
 
 import com.sda.smartCalendar.domain.model.Role;
 import com.sda.smartCalendar.domain.model.User;
-import com.sda.smartCalendar.repository.UserRepository;
+import com.sda.smartCalendar.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,7 +12,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
