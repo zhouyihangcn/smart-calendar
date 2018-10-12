@@ -42,4 +42,8 @@ public class Event {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDateTime event_finish;
 
+    @ManyToOne
+    @JoinColumn (name="user_email")
+    private User user;
+
 }

@@ -1,5 +1,4 @@
-package com.sda.smartCalendar.autologin;
-
+package com.sda.smartCalendar.service;
 
 import com.sda.smartCalendar.domain.model.User;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,7 +14,6 @@ import java.util.Set;
 @Service
 public class Autologin {
 
-    
     public void setSecuritycontext(User userForm) {
    	Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
    	grantedAuthorities.add(new SimpleGrantedAuthority(userForm.getProvider().toUpperCase()));
