@@ -1,66 +1,66 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-
-<!-- Links -->
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Bootstrap 101 Template</title>
-
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>Login</title>
+	<meta name="description" content="" />
+	<meta name="viewport" content="width=device-width" />
+	<base href="/" />
+	<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+	<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="/webjars/font-awesome/css/font-awesome.min.css"></link>
 </head>
 
 <body>
-<div class="container">
-    <!-- Header -->
-    <br>
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <h1>Login page</h1>
-            <form th:action="@{/login}" method="post">
-                <div th:if="${param.error}">
-                    <div class="alert alert-danger">
-                        Invalid username or password.
-                    </div>
-                </div>
-                <div th:if="${param.logout}">
-                    <div class="alert alert-info">
-                        You have been logged out.
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="username">Email</label>:
-                    <input type="text"
-                           id="username"
-                           name="username"
-                           class="form-control"
-                           autofocus="autofocus"
-                           placeholder="Email"/>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>:
-                    <input type="password"
-                           id="password"
-                           name="password"
-                           class="form-control"
-                           placeholder="Password"/>
-                </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-sm-6 col-sm-offset-3">
-                            <input type="submit"
-                                   name="login-submit"
-                                   id="login-submit"
-                                   class="form-control btn btn-info"
-                                   value="Log In"/>
-                        </div>
-                    </div>
-                </div>
 
-            </form>
-        </div>
-    </div>
+<div class="container">
+
+	<div th:fragment="logout" class="logout" sec:authorize="isAuthenticated()">
+		Logged in user: <b><span sec:authentication="name"></span></b> | Roles: <b><span sec:authentication="authorities"></span></b>
+		<form action="#" th:action="@{/logout}" method="post">
+			<button type="submit"  class="btn btn-danger btn-sm">
+				<span class="glyphicon glyphicon-log-out"></span>
+				Log out</button>
+		</form>
+	</div>
+	<br/>
+
+	<h1>Login Using</h1>
+
+	<form th:action="@{/login}" method="post" style="display: inline">
+		<label for="username">Email   </label> : <input type="text" id="username" name="username" autofocus="autofocus" placeholder="Enter email"/> <br />
+		<label for="password">Password</label>: <input type="password" id="password" name="password" /> <br />
+		<p th:if="${loginError}" class="alert alert-danger">Wrong email or password combination</p>
+		<button type="submit" class="btn btn-primary">
+			<span class="fa fa-user"></span>Login
+		</button>
+	</form>
+
+	<form action="/connect/google" method="POST" style="display: inline">
+		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+		<input type="hidden" name="scope" value="profile email" />
+		<button type="submit" class="btn btn-danger">
+			Google <span class="fa fa-google-plus"></span>
+		</button>
+	</form>
+
+	<form action="/connect/facebook" method="POST" style="display: inline">
+		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+		<input type="hidden" name="scope" value="public_profile,email" />
+		<button type="submit" class="btn btn-primary">
+			Facebook <span class="fa fa-facebook"></span>
+		</button>
+	</form>
+
+	<br />
+	<h3>
+		<p class="bg-important">
+			<a href="/registration" th:href="@{/registration}">Create Account</a>
+		</p>
+	</h3>
 </div>
 </body>
 </html>

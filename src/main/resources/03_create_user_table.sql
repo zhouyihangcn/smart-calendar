@@ -1,5 +1,7 @@
 CREATE TABLE IF NOT EXISTS user (
-  id          VARCHAR(36) primary key,
-  nick        VARCHAR(20),
-  password   VARCHAR(64)
+  email           VARCHAR(30) not null primary key,
+  first_name      VARCHAR(30) not null,
+  last_name       VARCHAR(30) not null,
+  password        VARCHAR(64),
+  provider        VARCHAR(30)
 );

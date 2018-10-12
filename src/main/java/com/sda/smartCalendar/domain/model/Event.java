@@ -27,6 +27,7 @@ public class Event {
     @Type(type = "uuid-char")
     private UUID id;
 
+
     @Column
     private String name;
 
@@ -40,8 +41,5 @@ public class Event {
     @Column
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDateTime event_finish;
-
-
-
 
 }

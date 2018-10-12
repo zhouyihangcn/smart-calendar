@@ -1,2 +1,2 @@
 INSERT INTO event (id, name, description, event_start, event_finish)
-VALUES ('7c3db429-743c-416c-a874-c37dc1bf864c','My birthday', 'Birthday party organised by my Parents', '2019-06-20 16:00:00', '2019-06-20 23:00:00' );
+VALUES ('7c3db429-743c-416c-a874-c37dc1bf864c','My birthday', 'Birthday party organised by my Parents', '2019-06-20 16:00:00', '2019-06-20 00:00:00');
