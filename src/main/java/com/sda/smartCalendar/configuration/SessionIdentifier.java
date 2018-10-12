@@ -1,4 +1,4 @@
-package com.sda.smartCalendar.identifier;
+package com.sda.smartCalendar.configuration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.social.UserIdSource;
@@ -10,8 +10,7 @@ import java.util.UUID;
 
 
 @Configuration
-public class SessionIdentifier extends SocialConfigurerAdapter
-{
+public class SessionIdentifier extends SocialConfigurerAdapter{
 
     @Override
     public UserIdSource getUserIdSource() {
