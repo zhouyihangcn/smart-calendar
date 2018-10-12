@@ -1,0 +1,36 @@
+<!--<databaseChangeLog-->
+        <!--xmlns="http://www.liquibase.org/xml/ns/dbchangelog"-->
+        <!--xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"-->
+        <!--xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+        <!--xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext-->
+   <!--http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd-->
+   <!--http://www.liquibase.org/xml/ns/dbchangelog-->
+   <!--http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">-->
+
+    <!--&lt;!&ndash;<changeSet author="Emila" id="101-01">&ndash;&gt;-->
+        <!--&lt;!&ndash;<sqlFile dbms="h2"&ndash;&gt;-->
+                 <!--&lt;!&ndash;encoding="utf8"&ndash;&gt;-->
+                 <!--&lt;!&ndash;path="01_create_event_table.sql"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;</changeSet>&ndash;&gt;-->
+    <!--&lt;!&ndash;<changeSet author="Emila" id="101-02">&ndash;&gt;-->
+        <!--&lt;!&ndash;<sqlFile dbms="h2"&ndash;&gt;-->
+                 <!--&lt;!&ndash;encoding="utf8"&ndash;&gt;-->
+                 <!--&lt;!&ndash;path="02_insert_first_event.sql"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;</changeSet>&ndash;&gt;-->
+    <!--<changeSet author="Emila" id="101-03">-->
+        <!--<createTable tableName="testTable"/>-->
+        <!--&lt;!&ndash;<sqlFile dbms="h2"&ndash;&gt;-->
+                 <!--&lt;!&ndash;encoding="utf8"&ndash;&gt;-->
+                 <!--&lt;!&ndash;path="03_create_user_table.sql"/>&ndash;&gt;-->
+    <!--</changeSet>-->
+    <!--&lt;!&ndash;<changeSet author="Gosia" id="101-04">&ndash;&gt;-->
+        <!--&lt;!&ndash;<sqlFile dbms="h2"&ndash;&gt;-->
+                 <!--&lt;!&ndash;encoding="utf8"&ndash;&gt;-->
+                 <!--&lt;!&ndash;path="04_create_role_table.sql"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;</changeSet>&ndash;&gt;-->
+    <!--&lt;!&ndash;<changeSet author="Gosia" id="101-05">&ndash;&gt;-->
+        <!--&lt;!&ndash;<sqlFile dbms="h2"&ndash;&gt;-->
+                 <!--&lt;!&ndash;encoding="utf8"&ndash;&gt;-->
+                 <!--&lt;!&ndash;path="05_users_roles.sql"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;</changeSet>&ndash;&gt;-->
+<!--</databaseChangeLog>-->
