@@ -1,6 +1,5 @@
 package com.sda.smartCalendar.domain.model;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,8 +15,8 @@ import org.hibernate.validator.constraints.Email;
 
 @Data
 @Entity
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
 	//private static final long serialVersionUID = 1L;
@@ -55,4 +54,14 @@ public class User {
 	@OneToMany (mappedBy = "user")
 	private Set<Event> events = new HashSet<>();
 
+	@Column(name = "enabled")
+	private boolean enabled;
+
+	@Column(name = "phone_number")
+	private String phoneNumber;
+
+	public User(String s, String gosia, String bak, String s1, String s2, String fb, long l, boolean b) {
+		super();
+		this.enabled=false;
+	}
 }
