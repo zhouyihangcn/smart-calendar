@@ -1,70 +1,114 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-    <title>Login page</title>
+    <meta charset="UTF-8"/>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"
+          name="viewport"/>
+    <title>Rejestracja</title>
+
+    <link rel="stylesheet" th:href="@{/modules/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/modules/ionicons/css/ionicons.min.css}"/>
+    <link rel="stylesheet" th:href="@{/modules/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css}"/>
+
+    <link rel="stylesheet" th:href="@{/css/demo.css}"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
+
 <body>
-    <br>
-            <div th:if="${param.success}">
-                <div class="alert alert-info">
-                    You've successfully registered to our awesome app!
+<div id="app">
+    <section class="section">
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
+                    <div class="login-brand">
+                        SMART CALENDAR
+                    </div>
+
+                    <div class="card card-primary">
+                        <div class="card-header"><h4>Rejestracja</h4></div>
+
+                        <div class="card-body">
+                            <form th:action="@{/registration}" th:object="${user}" method="post">
+                                <div class="row">
+                                    <div class="form-group col-6">
+                                        <label for="frist_name">Imię</label>
+                                        <input id="frist_name" type="text" class="form-control" name="frist_name"
+                                               th:field="*{firstName}" autofocus=''/>
+                                        <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"
+                                             class="alert alert-danger"></div>
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <label for="last_name">Nazwisko</label>
+                                        <input id="last_name" type="text" class="form-control" name="last_name"
+                                               th:field="*{lastName}"/>
+                                        <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
+                                             class="alert alert-danger"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input id="email" type="email" class="form-control" name="email"
+                                           th:field="*{email}"/>
+                                    <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                                         class="alert alert-danger"></div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-6">
+                                        <label for="password" class="d-block">Hasło</label>
+                                        <input id="password" type="password" class="form-control" name="password"
+                                               th:field="*{password}"/>
+                                        <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+                                             class="alert alert-danger"></div>
+                                    </div>
+
+                                    <div class="form-group col-6">
+                                        <label for="password2" class="d-block">Potwierdź hasło</label>
+                                        <input id="password2" type="password" class="form-control"
+                                               name="password-confirm"
+                                               th:field="*{passwordConfirm}"/>
+                                        <div th:if="${#fields.hasErrors('passwordConfirm')}"
+                                             th:errors="*{passwordConfirm}" class="alert alert-danger"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" name="agree" class="custom-control-input" id="agree"/>
+                                        <label class="custom-control-label" for="agree">Akceptuję warunki korzystania z
+                                            serwisu</label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-block">
+                                        Zarejestruj
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="simple-footer">
+                        Copyright &copy; Smart Calendar 2018
+                    </div>
                 </div>
             </div>
-            <div th:if="${param.failed}">
-                <div class="alert alert-warning">
-                    User already exists!
-                </div>
-            </div>
-            <h1>Registration</h1>
-
-            <form th:action="@{/registration}" th:object="${user}" method="post">
-
-                <p class="error-message"
-                   th:if="${#fields.hasGlobalErrors()}"
-                   th:each="error : ${#fields.errors('global')}"
-                   th:text="${error}">Validation error</p>
-                <table>
-                    <div class="form-group"
-                         th:classappend="${#fields.hasErrors('nick')}? 'has-error':''">
-                        <tr>
-                            <td>
-                                <label for="nick" class="control-label">Nick</label>
-                            </td>
-                            <td>
-                                <input id="nick"
-                                       class="form-control"
-                                       th:field="*{nick}"/>
-                                <p class="error-message"
-                                   th:each="error : ${#fields.errors('nick')}"
-                                   th:text="${error}">Validation error</p>
-                            </td>
-                        </tr>
-                    </div><br>
-
-                    <div class="form-group"
-                         th:classappend="${#fields.hasErrors('password')}? 'has-error':''">
-                        <tr>
-                            <td>
-                                <label for="password" class="control-label">Password</label>
-                            </td>
-                            <td>
-                                <input id="password"
-                                       class="form-control"
-                                       type="password"
-                                       th:field="*{password}"/>
-                                <p class="error-message"
-                                   th:each="error : ${#fields.errors('password')}"
-                                   th:text="${error}">Validation error</p>
-                            </td>
-                        </tr>
-                    </div><br>
-                </table>
-                <div class="form-group">
-                   <br> <button type="submit" class="btn btn-success">Register</button><br><br><br>
-                    <span>Already registered? <a href="/" th:href="@{/login}">Login here</a></span>
-                </div>
-            </form>
         </div>
-    </div>
+    </section>
+</div>
+
+<script src="/modules/jquery.min.js"></script>
+<script src="/modules/popper.js"></script>
+<script src="/modules/tooltip.js"></script>
+<script src="/modules/bootstrap/js/bootstrap.min.js"></script>
+<script src="/modules/nicescroll/jquery.nicescroll.min.js"></script>
+<script src="/modules/moment.min.js"></script>
+<script src="/modules/scroll-up-bar/dist/scroll-up-bar.min.js"></script>
+<script src="/js/sa-functions.js"></script>
+
+<script src="/js/scripts.js"></script>
+<script src="/js/custom.js"></script>
+<script src="/js/demo.js"></script>
 </body>
 </html>
