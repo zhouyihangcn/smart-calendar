@@ -22,17 +22,17 @@ public class User {
 
 	//private static final long serialVersionUID = 1L;
 	@Id
-	@NotNull(message = "Email  cannot be empty")
-	@Email(message = "Email Format is not valid")
-	@Size(min = 3, max = 30, message = "Email can not be empty")
+	@NotNull(message = "Pole nie może być puste")
+	@Email(message = "Format niepoprawny")
+	@Size(min = 3, max = 30, message = "Pole musi zawierać od 3 do 30 znaków")
 	private String email;
 
-	@NotNull(message = "First Name cannot be empty")
-	@Size(min = 3, max = 30, message = "First Name cannot be less than 3 characters")
+	@NotNull(message = "Pole nie może być puste")
+	@Size(min = 3, max = 30, message = "Pole musi zawierać od 3 do 30 znaków")
 	private String firstName;
 
-	@NotNull(message = "Last Name cannot be empty")
-	@Size(min = 3, max = 30, message = "Last Name cannot be less than 3 characters")
+	@NotNull(message = "Pole nie może być puste")
+	@Size(min = 3, max = 30, message = "Pole musi zawierać od 3 do 30 znaków")
 	private String lastName;
 
 	private String password;

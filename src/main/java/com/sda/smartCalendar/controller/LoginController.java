@@ -60,6 +60,13 @@ public class LoginController {
 		return "registration";
 	}
 
+//	-----------------------------
+	@GetMapping("/bla")
+	public String bla() {
+		return "index";
+	}
+//	-----------------------------
+
 	@PostMapping("/registration")
 	public String registerUser(HttpServletResponse httpServletResponse, @Valid User user, BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
@@ -76,7 +83,7 @@ public class LoginController {
 		autologin.setSecuritycontext(user);
 
 		model.addAttribute("loggedInUser", user);
-		return "secure/user";
+		return "login";
 	}
 
 	/** If we can't find a user/email combination */
