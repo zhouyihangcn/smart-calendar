@@ -3,10 +3,10 @@ package com.sda.smartCalendar.controller;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import com.sda.smartCalendar.domain.repository.UserRepository;
 import com.sda.smartCalendar.service.Autologin;
 import com.sda.smartCalendar.domain.model.User;
 import com.sda.smartCalendar.domain.repository.RoleRepository;
-import com.sda.smartCalendar.domain.repository.UserRepository;
 import com.sda.smartCalendar.social.providers.FacebookProvider;
 import com.sda.smartCalendar.social.providers.GoogleProvider;
 import org.apache.commons.lang3.StringUtils;
@@ -61,7 +61,7 @@ public class LoginController {
 	}
 
 //	-----------------------------
-	@GetMapping("/bla")
+	@GetMapping("/index")
 	public String bla() {
 		return "index";
 	}

@@ -28,10 +28,10 @@
               <div class="card-header"><h4>Login</h4></div>
 
               <div class="card-body">
-                <form method="POST" action="@{/login}" class="needs-validation" novalidate="">
+                <form method="POST" th:action="@{/login}" class="needs-validation" novalidate="">
                   <div class="form-group">
                     <label for="email">Email</label>
-                    <input id="email" type="email" class="form-control" name="email" tabindex="1" required ='required' autofocus = "" />
+                    <input id="email" type="email" class="form-control" name="username" tabindex="1" autofocus="autofocus" required ='required'/>
                     <div class="invalid-feedback">
                       Please fill in your email
                     </div>
@@ -50,7 +50,7 @@
                       Podaj hasło
                     </div>
                   </div>
-
+                  <p th:if="${loginError}" class="alert alert-danger">Nieprawidłowy email lub hasło</p>
                   <div class="form-group">
                     <div class="custom-control custom-checkbox">
                       <input type="checkbox" name="remember" class="custom-control-input" tabindex="3" id="remember-me"/>
