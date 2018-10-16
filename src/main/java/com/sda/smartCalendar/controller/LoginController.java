@@ -1,7 +1,7 @@
 package com.sda.smartCalendar.controller;
 
 import com.sda.smartCalendar.domain.IUserService;
-import com.sda.smartCalendar.domain.OneRegistrationCompleteEvent;
+import com.sda.smartCalendar.domain.OnRegistrationCompleteEvent;
 import com.sda.smartCalendar.domain.model.User;
 import com.sda.smartCalendar.domain.model.VerificationToken;
 import com.sda.smartCalendar.domain.repository.RoleRepository;
@@ -21,7 +21,6 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.Arrays;
@@ -104,7 +103,7 @@ public class LoginController {
 //			String appUrl= req.getRequestURI().substring(req.getContextPath().length());
 
 			String appUrl = request.getContextPath();
-			eventPublisher.publishEvent(new OneRegistrationCompleteEvent
+			eventPublisher.publishEvent(new OnRegistrationCompleteEvent
 					(user, request.getLocale(), appUrl));
 		} catch (Exception me) {
 		}

@@ -3,7 +3,6 @@ package com.sda.smartCalendar.domain;
 import com.sda.smartCalendar.domain.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
-import org.springframework.context.MessageSource;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -14,7 +13,7 @@ import java.util.UUID;
 
 
 @Component
-public class RegistrationListener implements ApplicationListener<OneRegistrationCompleteEvent> {
+public class RegistrationListener implements ApplicationListener<OnRegistrationCompleteEvent> {
     @Autowired
     private IUserService service;
 
@@ -31,11 +30,11 @@ public class RegistrationListener implements ApplicationListener<OneRegistration
 
 
     @Override
-    public void onApplicationEvent(OneRegistrationCompleteEvent event) {
+    public void onApplicationEvent(OnRegistrationCompleteEvent event) {
         this.confirmRegistration(event);
     }
 
-    private void confirmRegistration(OneRegistrationCompleteEvent event) {
+    private void confirmRegistration(OnRegistrationCompleteEvent event) {
         User user = event.getUser();
         String token = UUID.randomUUID().toString();
         service.createVerificationToken(user, token);

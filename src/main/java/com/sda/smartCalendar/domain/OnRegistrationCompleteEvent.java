@@ -8,12 +8,12 @@ import java.util.Locale;
 
 @Data
 @SuppressWarnings("serial")
-public class OneRegistrationCompleteEvent extends ApplicationEvent {
+public class OnRegistrationCompleteEvent extends ApplicationEvent {
     private String appUrl;
     private Locale locale;
     private User user;
 
-    public OneRegistrationCompleteEvent(User user, Locale locale, String appUrl) {
+    public OnRegistrationCompleteEvent(User user, Locale locale, String appUrl) {
         super(user);
         this.user = user;
         this.locale = locale;
