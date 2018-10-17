@@ -35,11 +35,11 @@ public class Event {
     private String description;
 
     @Column
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime event_start;
 
     @Column
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") // i tak sie tego nie slucha
     private LocalDateTime event_finish;
 
     @ManyToOne

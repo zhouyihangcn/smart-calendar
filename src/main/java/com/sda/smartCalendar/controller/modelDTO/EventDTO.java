@@ -17,8 +17,8 @@ public class EventDTO {
     private UUID id;
     private String name;
     private String description;
-    private LocalDateTime event_start;
-    private LocalDateTime event_finish;
+    private String event_start;
+    private String event_finish;
     private User user;
     private Category category;
 
