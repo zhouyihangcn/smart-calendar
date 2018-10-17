@@ -11,5 +11,3 @@ databaseChangeLog:
     file: 05_insert_roles.sql
 - include:
       file: 06_insert_admin.sql
-- include:
-    file: 07_insert_first_event.sql

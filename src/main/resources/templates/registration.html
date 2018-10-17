@@ -29,7 +29,7 @@
                         <div class="card-header"><h4>Rejestracja</h4></div>
 
                         <div class="card-body">
-                            <form th:action="@{/registration}" th:object="${user}" method="post">
+                            <form th:action="@{/registration}" th:object="${userRegistrationDTO}" method="post">
                                 <div class="row">
                                     <div class="form-group col-6">
                                         <label for="frist_name">Imię</label>

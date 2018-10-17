@@ -5,5 +5,7 @@ CREATE TABLE IF NOT EXISTS event (
   event_start  TIMESTAMP,
   event_finish TIMESTAMP,
   user_email VARCHAR(30),
+  category INTEGER,
+  user VARCHAR(30),
   FOREIGN KEY (user_email) REFERENCES user(email)
 );
