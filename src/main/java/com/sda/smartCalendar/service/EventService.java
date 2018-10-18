@@ -17,13 +17,13 @@ import java.util.stream.Collectors;
 public class EventService {
 
     @Autowired
-    EventRepository eventRepository;
+    private EventRepository eventRepository;
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    MappingService mappingService;
+    private MappingService mappingService;
 
     public void addEvent(EventDTO eventDTO, Principal principal) {
         User user = userRepository.findByEmail(principal.getName());

@@ -1,8 +1,11 @@
 package com.sda.smartCalendar.controller;
 
+import com.sda.smartCalendar.controller.modelDTO.EventDTO;
+import com.sda.smartCalendar.controller.modelDTO.UserDTO;
 import com.sda.smartCalendar.controller.modelDTO.UserRegistrationDTO;
 import com.sda.smartCalendar.domain.model.User;
 import com.sda.smartCalendar.domain.repository.UserRepository;
+import com.sda.smartCalendar.service.MappingService;
 import com.sda.smartCalendar.service.UserService;
 import com.sda.smartCalendar.social.providers.FacebookProvider;
 import com.sda.smartCalendar.social.providers.GoogleProvider;
@@ -16,22 +19,26 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.security.Principal;
 
 
 @Controller
 public class UserController {
 
     @Autowired
-    FacebookProvider facebookProvider;
+    private FacebookProvider facebookProvider;
 
     @Autowired
-    GoogleProvider googleProvider;
+    private GoogleProvider googleProvider;
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private MappingService mappingService;
 
     @RequestMapping(value = "/facebook", method = RequestMethod.GET)
     public String loginToFacebook(Model model) {
@@ -64,9 +71,17 @@ public class UserController {
     }
 
     @GetMapping("/index")
-    public String showMainPage() {
+    public String showMainPage(Model model, Principal principal) {
+        model.addAttribute("loggedInUser", userService.findByEmail(principal.getName()));
         return "index";
     }
+
+
+    @GetMapping("/nopage")
+    public String nopage() {
+        return "nopage";
+    }
+
 
     /**
      * If we can't find a user/email combination

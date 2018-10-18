@@ -31,20 +31,16 @@
                                                 <th>Nazwa</th>
                                                 <th>Start</th>
                                                 <th>Koniec</th>
-                                                <th>Opis</th>
                                                 <th>Kategoria</th>
-                                                <th>Przypomnienia</th>
+                                                <th>Szczegóły</th>
                                             </tr>
 
                                             <tr th:each="event: ${eventList}">
                                                 <td th:text="${event.getName()}"></td>
                                                 <td type="datetime-local" th:text="${event.getEvent_start()}"></td>
                                                 <td type="datetime-local" th:text="${event.getEvent_finish()}"></td>
-                                                <td><a href="#" class="btn btn-action btn-info">Opis</a></td>
                                                 <td th:text="${event.getCategory()}"></td>
-                                                <td>
-                                                    <div class="badge badge-secondary">Brak</div>
-                                                </td>
+                                                <td><a href="#" class="btn btn-action btn-info">Zobacz/Edytuj</a></td>
                                             </tr>
 
                                         </table>

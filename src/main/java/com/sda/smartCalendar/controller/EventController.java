@@ -3,7 +3,9 @@ package com.sda.smartCalendar.controller;
 import com.sda.smartCalendar.controller.modelDTO.EventDTO;
 import com.sda.smartCalendar.domain.model.Category;
 import com.sda.smartCalendar.domain.model.User;
+import com.sda.smartCalendar.domain.repository.UserRepository;
 import com.sda.smartCalendar.service.EventService;
+import com.sda.smartCalendar.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -18,17 +20,23 @@ import java.security.Principal;
 public class EventController {
 
     @Autowired
-    EventService eventService;
+    private EventService eventService;
 
-    @GetMapping("/addEvent")
-    public String addEvent(@ModelAttribute("eventDTO") EventDTO eventDTO, Model model) {
+    @Autowired
+    private UserService userService;
+
+    @GetMapping("/addevent")
+    public String addEvent(@ModelAttribute("eventDTO") EventDTO eventDTO, Model model, Principal principal) {
         model.addAttribute("categories", Category.values());
-        return "addEvent";
+        model.addAttribute("loggedInUser", userService.findByEmail(principal.getName()));
+        return "addevent";
     }
 
-    @PostMapping(path = "/addEvent")
-    public String addPost(@ModelAttribute("eventDTO") EventDTO eventDTO, Principal principal) {
+
+    @PostMapping(path = "/addevent")
+    public String addPost(@ModelAttribute("eventDTO") EventDTO eventDTO, Principal principal, Model model) {
         eventService.addEvent(eventDTO, principal);
+        model.addAttribute("loggedInUser", userService.findByEmail(principal.getName()));
         return "redirect:/showevents";
     }
 
@@ -37,6 +45,7 @@ public class EventController {
     public String showEvents(Model model, Principal principal) {
         model.addAttribute("categories", Category.values());
         model.addAttribute("eventList",eventService.getAllEventsByUser(principal.getName()));
+        model.addAttribute("loggedInUser", userService.findByEmail(principal.getName()));
         return "showevents";
     }
 }
