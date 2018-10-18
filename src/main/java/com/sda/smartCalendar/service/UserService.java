@@ -16,59 +16,47 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 
 @Service
-public class UserService implements UserDetailsService,IUserService {
+public class UserService implements UserDetailsService{
 
 	@Autowired
 	private UserRepository userRepository;
-	
 
 	@Override
 	@Transactional(readOnly = true)
-	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		
-		User user = userRepository.findByEmail(email);
-		 if (user == null) {
-	            throw new UsernameNotFoundException("No user found with email: " + email);
-	        }
-		Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-		grantedAuthorities.add(new SimpleGrantedAuthority("LOGGED_USER"));
-		return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), grantedAuthorities);
-	}
-//////////////////
+	public UserDetails loadUserByUsername(String email)
+			throws UsernameNotFoundException {
 
-	@Autowired
-	private VerificationTokenRepository tokenRepository;
+		boolean accountNonExpired = true;
+		boolean credentialsNonExpired = true;
+		boolean accountNonLocked = true;
+		try {
+			User user = userRepository.findByEmail(email);
+			if (user == null) {
+				throw new UsernameNotFoundException(
+						"No user found with username: " + email);
+			}
+			Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+			grantedAuthorities.add(new SimpleGrantedAuthority("LOGGED_USER"));
 
-	@Autowired
-	private RoleRepository roleRepository;
-
-	@Override
-	public User getUser(final String verificationToken) {
-		final VerificationToken token = tokenRepository.findByToken(verificationToken);
-		if (token != null) {
-			return token.getUser();
+			return new org.springframework.security.core.userdetails.User(
+					user.getEmail(),
+					user.getPassword(),
+					user.isEnabled(),
+					accountNonExpired,
+				credentialsNonExpired,
+				accountNonLocked,
+					grantedAuthorities);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
 		}
-		return null;
 	}
 
-	@Override
-	public VerificationToken getVerificationToken(String VerificationToken) {
-		return tokenRepository.findByToken(VerificationToken);
-	}
 
-	@Override
-	public void saveRegisteredUser(User user) {
-		userRepository.save(user);
-	}
-
-	@Override
-	public void createVerificationToken(User user, String token) {
-		VerificationToken myToken = new VerificationToken(token, user);
-		tokenRepository.save(myToken);
-	}
 }

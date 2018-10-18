@@ -6,7 +6,7 @@ import com.sda.smartCalendar.exceptions.EmailExistsException;
 
 public interface IUserService {
 
-//    User registerNewUserAccount(User accountDto)
+//    User registerNewUserAccount(User account)
 //            throws EmailExistsException;
 
     User getUser(String verificationToken);

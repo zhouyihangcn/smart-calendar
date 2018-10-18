@@ -94,30 +94,20 @@ public class LoginController {
 		if (StringUtils.isNotEmpty(user.getPassword())) {
 			user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 		}
-		model.addAttribute("loggedInUser", user);
-
 		user.setRoles(Arrays.asList(roleRepository.findOne(2L)));
-
-		autologin.setSecuritycontext(user);
+		//do usuniecia
+		//autologin.setSecuritycontext(user);
 
 		bindingResult.rejectValue("email", "message.regError");
 		userRepository.save(user);
-		//eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered, request.getLocale(), getAppUrl(request)));
+		model.addAttribute("loggedInUser", user);//eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered, request.getLocale(), getAppUrl(request)));
 		try {
-
-//			HttpServletRequest req= (HttpServletRequest) request;
-//			String appUrl= req.getRequestURI().substring(req.getContextPath().length());
-
-
-
-		model.addAttribute("loggedInUser", user);
-
+			//do usuniecia
 			String appUrl = request.getContextPath();
 			eventPublisher.publishEvent(new OnRegistrationCompleteEvent
 					(user, request.getLocale(), appUrl));
 		} catch (Exception me) {
 		}
-
 		return "login";
 	}
 
@@ -132,7 +122,6 @@ public class LoginController {
 			//return "redirect:/badUser.html?lang=" + locale.getLanguage();
 			return "redirect:/badUser?lang=" + locale.getLanguage();
 		}
-
 		User user = verificationToken.getUser();
 		Calendar cal = Calendar.getInstance();
 		if ((verificationToken.getExpiryDate().getTime() - cal.getTime().getTime()) <= 0) {
@@ -141,8 +130,9 @@ public class LoginController {
 			//return "redirect:/badUser.html?lang=" + locale.getLanguage();
 			return "redirect:/badUser?lang=" + locale.getLanguage();
 		}
-
 		user.setEnabled(true);
+
+
 		service.saveRegisteredUser(user);
 		//return "redirect:/login.html?lang=" + request.getLocale().getLanguage();
 		//return "redirect:/login?lang=" + request.getLocale().getLanguage();

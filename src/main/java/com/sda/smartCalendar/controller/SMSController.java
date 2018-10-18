@@ -40,19 +40,19 @@ public class SMSController {
     SMSService smsService;
 
     @RequestMapping("/greeting")
-    public String greeting(
-            @RequestParam(value="mode", required=false, defaultValue="text") String mode,
-            @RequestParam(value="number", required=true) String number,User user,
-            Model model) {
+    public String greeting(){
+//            @RequestParam(value="mode", required=false, defaultValue="text") String mode,
+//            @RequestParam(value="number", required=true)User user,
+//            Model model) {
 
-            model.addAttribute("number", user.getPhoneNumber());
-            model.addAttribute("mode", mode);
+//            model.addAttribute("number", user.getPhoneNumber());
+//            model.addAttribute("mode", mode);
 //
 //        if(mode.equalsIgnoreCase("text")){
 //            sendSMS();
 //        }
 
-            smsService.sendSMS(number);
+            smsService.sendSMS();
             return "greeting";
 
         // public void sendSMS(String to){
