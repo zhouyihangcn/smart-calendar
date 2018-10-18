@@ -1,9 +1,9 @@
 package com.sda.smartCalendar.social.providers;
 
 import com.sda.smartCalendar.domain.repository.RoleRepository;
+import com.sda.smartCalendar.domain.repository.UserRepository;
 import com.sda.smartCalendar.service.Autologin;
 import com.sda.smartCalendar.domain.model.User;
-import com.sda.smartCalendar.domain.repository.UserRepository;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -34,7 +34,7 @@ public class GoogleProvider   {
 		baseProvider.autoLoginUser(userForm);
 				
 		model.addAttribute("loggedInUser",userForm);
-		return "secure/user";
+		return "index";
 	}
 
 

@@ -34,7 +34,7 @@ public class FacebookProvider  {
 		//Login the User
 		baseProvider.autoLoginUser(userForm);
 		model.addAttribute("loggedInUser",userForm);
-		return "secure/user";
+		return "index";
 	}
 
 	protected void populateUserDetailsFromFacebook(User userForm) {

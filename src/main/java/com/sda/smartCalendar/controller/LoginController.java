@@ -58,12 +58,12 @@ public class LoginController {
 
 	@RequestMapping(value = "/facebook", method = RequestMethod.GET)
 	public String loginToFacebook(Model model) {
-		return facebookProvider.getFacebookUserData(model, new User("mojmail@.wp.pl", "Gosia", "Bak", "12345", "12345", "fb", 2L, true));
+		return facebookProvider.getFacebookUserData(model, new User());
 	}
 
 	@RequestMapping(value = "/google", method = RequestMethod.GET)
 	public String loginToGoogle(Model model) {
-		return googleProvider.getGoogleUserData(model, new User("mojmail@.wp.pl", "Gosia", "Bak", "12345", "12345", "fb", 2L, true));
+		return googleProvider.getGoogleUserData(model, new User());
 	}
 
 	@RequestMapping(value = { "/", "/login" })
@@ -76,6 +76,12 @@ public class LoginController {
 		return "registration";
 	}
 
+//	-----------------------------
+	@GetMapping("/index")
+	public String bla() {
+		return "index";
+	}
+//	-----------------------------
 
 	@PostMapping("/registration")
 	public String registerUser(HttpServletResponse httpServletResponse, @Valid User user, Model model, BindingResult bindingResult,
@@ -102,13 +108,17 @@ public class LoginController {
 //			HttpServletRequest req= (HttpServletRequest) request;
 //			String appUrl= req.getRequestURI().substring(req.getContextPath().length());
 
+
+
+		model.addAttribute("loggedInUser", user);
+
 			String appUrl = request.getContextPath();
 			eventPublisher.publishEvent(new OnRegistrationCompleteEvent
 					(user, request.getLocale(), appUrl));
 		} catch (Exception me) {
 		}
 
-		return "secure/user";
+		return "login";
 	}
 
 	@RequestMapping(value = "/registrationConfirm", method = RequestMethod.GET)
@@ -137,6 +147,13 @@ public class LoginController {
 		//return "redirect:/login.html?lang=" + request.getLocale().getLanguage();
 		//return "redirect:/login?lang=" + request.getLocale().getLanguage();
 		return "redirect:/login";
+	}
+
+	/** If we can't find a user/email combination */
+	@RequestMapping("/login-error")
+	public String loginError(Model model) {
+		model.addAttribute("loginError", true);
+		return "login";
 	}
 
 }

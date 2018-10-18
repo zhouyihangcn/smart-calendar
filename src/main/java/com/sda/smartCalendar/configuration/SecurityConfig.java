@@ -22,6 +22,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		web.ignoring().antMatchers("/h2/**", "/react/**");
 	}
 
+
+//	@Override
+//
+//	public void configure(WebSecurity web) throws Exception {
+//
+//		web.ignoring().antMatchers("/**"); // all endpoints public
+//
+//	}
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers("/css/**", "/connect/**").permitAll()
@@ -30,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.and()
 				.formLogin()
 				.loginPage("/login")
-				.defaultSuccessUrl("/secure/user")
+				.defaultSuccessUrl("/index")
 				.failureUrl("/login-error")
 				.permitAll()
 				.and()

@@ -1,55 +1,114 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-<meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<title>Login</title>
-<meta name="description" content="" />
-<meta name="viewport" content="width=device-width" />
-<base href="/" />
-<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
-<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
-<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="/webjars/font-awesome/css/font-awesome.min.css"></link>
+    <meta charset="UTF-8"/>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"
+          name="viewport"/>
+    <title>Rejestracja</title>
+
+    <link rel="stylesheet" th:href="@{/modules/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/modules/ionicons/css/ionicons.min.css}"/>
+    <link rel="stylesheet" th:href="@{/modules/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css}"/>
+
+    <link rel="stylesheet" th:href="@{/css/demo.css}"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
 
 <body>
-	<div class="container" style="width:80%">
-	<h1>Registration Page</h1>
-	<br />
-		<form action="#" th:action="@{/registration}" th:object="${user}" method="post" >
-			<div class="form-group" >
-				<label for="email" class="control-label col-sm-2">Email*</label>:: <input type="text" th:field="*{email}"  placeholder="Enter email"/>
-				<div style="width:33%"  th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="alert alert-danger">Email Error</div>
-			</div>
-			<div class="form-group">
-				<label for="firstName" class="control-label col-sm-2">First Name*</label>:: <input type="text" th:field="*{firstName}" />
-				<div style="width:33%" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="alert alert-danger">FirstName Error</div>
-			</div>
-			<div class="form-group">
-				<label for="lastName" class="control-label col-sm-2">Last Name*</label>:: <input type="text" th:field="*{lastName}" />
-				<div style="width:33%" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="alert alert-danger">LastName Error</div>
-			</div>
-			<div class="form-group">
-				<label for="password" class="control-label col-sm-2">Password*</label>:: <input type="text" th:field="*{password}" />
-				<div style="width:33%" th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="alert alert-danger">Password Error</div>
-			</div>
-			<div class="form-group">
-				<label for="passwordConfirm" class="control-label col-sm-2">Confirm Password*</label>:: <input type="text" th:field="*{passwordConfirm}" />
-				<div style="width:33%" th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}" class="alert alert-danger">Password Error</div>
-			</div>
-			<div class="form-group">
-				<label for="phoneNumber" class="control-label col-sm-2">Phone number*</label>:: <input type="text" th:field="*{phoneNumber}" />
-				<div style="width:33%" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" class="alert alert-danger">Phone number Error</div>
-			</div>
-			<input type="hidden" name="provider"  value="registration" />
-			<div class="form-group">
-				<button type="submit" class="btn btn-primary">Register</button>
-			</div>
-		</form>
+<div id="app">
+    <section class="section">
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
+                    <div class="login-brand">
+                        SMART CALENDAR
+                    </div>
 
-	</div>
+                    <div class="card card-primary">
+                        <div class="card-header"><h4>Rejestracja</h4></div>
 
+                        <div class="card-body">
+                            <form th:action="@{/registration}" th:object="${user}" method="post">
+                                <div class="row">
+                                    <div class="form-group col-6">
+                                        <label for="frist_name">Imię</label>
+                                        <input id="frist_name" type="text" class="form-control" name="frist_name"
+                                               th:field="*{firstName}" autofocus=''/>
+                                        <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"
+                                             class="alert alert-danger"></div>
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <label for="last_name">Nazwisko</label>
+                                        <input id="last_name" type="text" class="form-control" name="last_name"
+                                               th:field="*{lastName}"/>
+                                        <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
+                                             class="alert alert-danger"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input id="email" type="email" class="form-control" name="email"
+                                           th:field="*{email}"/>
+                                    <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                                         class="alert alert-danger"></div>
+                                </div>
 
+                                <div class="row">
+                                    <div class="form-group col-6">
+                                        <label for="password" class="d-block">Hasło</label>
+                                        <input id="password" type="password" class="form-control" name="password"
+                                               th:field="*{password}"/>
+                                        <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+                                             class="alert alert-danger"></div>
+                                    </div>
+
+                                    <div class="form-group col-6">
+                                        <label for="password2" class="d-block">Potwierdź hasło</label>
+                                        <input id="password2" type="password" class="form-control"
+                                               name="password-confirm"
+                                               th:field="*{passwordConfirm}"/>
+                                        <div th:if="${#fields.hasErrors('passwordConfirm')}"
+                                             th:errors="*{passwordConfirm}" class="alert alert-danger"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" name="agree" class="custom-control-input" id="agree"/>
+                                        <label class="custom-control-label" for="agree">Akceptuję warunki korzystania z
+                                            serwisu</label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-block">
+                                        Zarejestruj
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="simple-footer">
+                        Copyright &copy; Smart Calendar 2018
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script src="/modules/jquery.min.js"></script>
+<script src="/modules/popper.js"></script>
+<script src="/modules/tooltip.js"></script>
+<script src="/modules/bootstrap/js/bootstrap.min.js"></script>
+<script src="/modules/nicescroll/jquery.nicescroll.min.js"></script>
+<script src="/modules/moment.min.js"></script>
+<script src="/modules/scroll-up-bar/dist/scroll-up-bar.min.js"></script>
+<script src="/js/sa-functions.js"></script>
+
+<script src="/js/scripts.js"></script>
+<script src="/js/custom.js"></script>
+<script src="/js/demo.js"></script>
 </body>
 </html>
