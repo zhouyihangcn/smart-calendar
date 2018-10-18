@@ -1,0 +1,36 @@
+package com.sda.smartCalendar.domain.model;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
+@Data
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+public class User {
+
+	@Id
+	private String email;
+	private String firstName;
+	private String lastName;
+	private String password;
+	private String provider;
+
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(
+                    name = "user_email", referencedColumnName = "email"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "role_id", referencedColumnName = "id"))
+    private Collection<Role> roles;
+
+	@OneToMany (mappedBy = "user")
+	private Set<Event> events = new HashSet<>();
+}
