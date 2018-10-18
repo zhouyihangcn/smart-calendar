@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class EventService {
@@ -28,6 +31,17 @@ public class EventService {
         event = mappingService.map(eventDTO);
         event.setUser(user);
         eventRepository.save(event);
+    }
+
+    public List<EventDTO> getAllEventsByUser(String email){
+        List<Event> eventList = eventRepository.findAllByUserEmail(email);
+        return eventList.stream()
+                .map(event -> {
+                    EventDTO eventDTO = mappingService.map(event);
+                    return eventDTO;
+                })
+                .sorted(Comparator.comparing(EventDTO::getEvent_start).reversed())
+                .collect(Collectors.toList());
     }
 
 

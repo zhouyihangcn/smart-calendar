@@ -1,8 +1,6 @@
 package com.sda.smartCalendar.domain.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -13,6 +11,8 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(exclude = {"events", "roles"})
+@ToString(exclude = {"events", "roles"})
 public class User {
 
 	@Id

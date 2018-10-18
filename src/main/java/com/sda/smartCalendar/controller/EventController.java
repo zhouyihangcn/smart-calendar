@@ -2,6 +2,7 @@ package com.sda.smartCalendar.controller;
 
 import com.sda.smartCalendar.controller.modelDTO.EventDTO;
 import com.sda.smartCalendar.domain.model.Category;
+import com.sda.smartCalendar.domain.model.User;
 import com.sda.smartCalendar.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -33,8 +34,9 @@ public class EventController {
 
 
     @GetMapping("/showevents")
-    public String showEvents(@ModelAttribute("eventDTO") EventDTO eventDTO, Model model) {
+    public String showEvents(Model model, Principal principal) {
         model.addAttribute("categories", Category.values());
+        model.addAttribute("eventList",eventService.getAllEventsByUser(principal.getName()));
         return "showevents";
     }
 }
