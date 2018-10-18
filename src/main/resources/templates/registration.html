@@ -1,19 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-<head>
-    <meta charset="UTF-8"/>
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"
-          name="viewport"/>
-    <title>Rejestracja</title>
 
-    <link rel="stylesheet" th:href="@{/modules/bootstrap/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" th:href="@{/modules/ionicons/css/ionicons.min.css}"/>
-    <link rel="stylesheet" th:href="@{/modules/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css}"/>
-
-    <link rel="stylesheet" th:href="@{/css/demo.css}"/>
-    <link rel="stylesheet" th:href="@{/css/style.css}"/>
-</head>
+<!-- Links head -->
+<head th:replace="fragments::head"></head>
 
 <body>
 <div id="app">
@@ -29,7 +19,7 @@
                         <div class="card-header"><h4>Rejestracja</h4></div>
 
                         <div class="card-body">
-                            <form th:action="@{/registration}" th:object="${user}" method="post">
+                            <form th:action="@{/registration}" th:object="${userRegistrationDTO}" method="post">
                                 <div class="row">
                                     <div class="form-group col-6">
                                         <label for="frist_name">Imię</label>
@@ -97,18 +87,18 @@
         </div>
     </section>
 </div>
+<script src="/modules/moment.min.js"></script>
 
 <script src="/modules/jquery.min.js"></script>
 <script src="/modules/popper.js"></script>
 <script src="/modules/tooltip.js"></script>
 <script src="/modules/bootstrap/js/bootstrap.min.js"></script>
 <script src="/modules/nicescroll/jquery.nicescroll.min.js"></script>
-<script src="/modules/moment.min.js"></script>
 <script src="/modules/scroll-up-bar/dist/scroll-up-bar.min.js"></script>
 <script src="/js/sa-functions.js"></script>
-
 <script src="/js/scripts.js"></script>
 <script src="/js/custom.js"></script>
 <script src="/js/demo.js"></script>
+
 </body>
 </html>
