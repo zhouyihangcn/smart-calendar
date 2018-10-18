@@ -28,6 +28,13 @@ public class EventController {
     @PostMapping(path = "/addEvent")
     public String addPost(@ModelAttribute("eventDTO") EventDTO eventDTO, Principal principal) {
         eventService.addEvent(eventDTO, principal);
-        return "redirect:/index";
+        return "redirect:/showevents";
+    }
+
+
+    @GetMapping("/showevents")
+    public String showEvents(@ModelAttribute("eventDTO") EventDTO eventDTO, Model model) {
+        model.addAttribute("categories", Category.values());
+        return "showevents";
     }
 }
