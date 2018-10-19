@@ -1,5 +1,6 @@
 package com.sda.smartCalendar.controller.modelDTO;
 
+import com.sda.smartCalendar.validation.FieldsValueMatch;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,13 +10,20 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Size;
 
+
+@FieldsValueMatch.List({
+        @FieldsValueMatch(
+                field = "password",
+                fieldMatch = "passwordConfirm"
+        )
+})
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserRegistrationDTO {
 
     @NotEmpty(message = "Pole nie może być puste")
-    @Email(message = "Format niepoprawny")
     @Size(min = 3, max = 30, message = "Pole musi zawierać od 3 do 30 znaków")
     private String email;
 

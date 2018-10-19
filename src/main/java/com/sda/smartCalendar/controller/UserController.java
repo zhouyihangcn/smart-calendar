@@ -23,6 +23,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.Calendar;
 import java.util.Locale;
@@ -108,23 +110,24 @@ public class UserController {
     private MessageSource messages;
 
     @PostMapping("/registration")
-    public String registerUser(@Valid UserRegistrationDTO userRegistrationDTO, Model model, BindingResult bindingResult,
-                               WebRequest request) {
+    public String registerUser(@ModelAttribute("userRegistrationDTO") @Valid UserRegistrationDTO userRegistrationDTO, BindingResult bindingResult, WebRequest request) {
 
-        model.addAttribute("loggedInUser", userRegistrationDTO);
-        //Do sprawdzenia
+        if (bindingResult.hasErrors()) {
+            if(userRegistrationDTO.getPassword()!=userRegistrationDTO.getPasswordConfirm()){
+                return "redirect:/registration?passworderror";
+            }
+            return "registration";
+        }
+
         if (userService.findByEmail(userRegistrationDTO.getEmail()) != null) {
             return "redirect:/registration?failed";
-        }
-        if (bindingResult.hasErrors()) {
-            return "registration";
         }
 
         User registered = userService.registerUser(userRegistrationDTO);
         String appUrl = request.getContextPath();
         eventPublisher.publishEvent(new OnRegistrationCompleteEvent
                 (registered, request.getLocale(), appUrl));
-        return "login";
+        return "redirect:/login";
     }
 
     @RequestMapping(value = "/registrationConfirm", method = RequestMethod.GET)
