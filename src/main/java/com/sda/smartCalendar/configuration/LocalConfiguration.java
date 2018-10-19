@@ -14,8 +14,7 @@ import java.io.InputStream;
 import java.util.Locale;
 
 @Configuration
-public class Conf {
-
+public class LocalConfiguration {
 
     @Bean
     LocaleResolver createLocal(){
