@@ -3,8 +3,6 @@ package com.sda.smartCalendar.social.providers;
 
 import com.sda.smartCalendar.domain.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-
-
 import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.stereotype.Service;

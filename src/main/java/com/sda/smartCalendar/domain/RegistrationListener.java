@@ -27,8 +27,6 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
     private Environment env;
 
     // API
-
-
     @Override
     public void onApplicationEvent(OnRegistrationCompleteEvent event) {
         this.confirmRegistration(event);

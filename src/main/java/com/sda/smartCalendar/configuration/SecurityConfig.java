@@ -22,7 +22,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		web.ignoring().antMatchers("/h2/**", "/react/**");
 	}
 
-
 //	@Override
 //
 //	public void configure(WebSecurity web) throws Exception {
@@ -46,12 +45,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.logout()
 				.permitAll();
 	}
-	
+
 	@Bean
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
+
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());

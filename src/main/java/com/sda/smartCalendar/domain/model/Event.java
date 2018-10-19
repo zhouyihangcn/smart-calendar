@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -35,15 +35,17 @@ public class Event {
     private String description;
 
     @Column
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime event_start;
 
     @Column
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") // i tak sie tego nie slucha
     private LocalDateTime event_finish;
 
     @ManyToOne
     @JoinColumn (name="user_email")
     private User user;
 
+    @Column
+    private Category category;
 }
