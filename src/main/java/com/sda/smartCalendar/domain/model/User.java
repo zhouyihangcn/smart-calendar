@@ -1,9 +1,17 @@
 package com.sda.smartCalendar.domain.model;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+import org.hibernate.validator.constraints.Email;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.HashSet;
@@ -11,8 +19,8 @@ import java.util.Set;
 
 @Data
 @Entity
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
 	@Id
@@ -33,4 +41,15 @@ public class User {
 
 	@OneToMany (mappedBy = "user")
 	private Set<Event> events = new HashSet<>();
+
+	@Column(name = "enabled")
+	private boolean enabled;
+
+	@Column(name = "phone_number")
+	private String phoneNumber;
+
+	public User(String s, String gosia, String bak, String s1, String s2, String fb, long l, boolean b) {
+		super();
+		this.enabled=false;
+	}
 }

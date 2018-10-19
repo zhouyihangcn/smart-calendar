@@ -21,5 +21,4 @@ public class EventDTO {
     private String event_finish;
     private User user;
     private Category category;
-
 }
