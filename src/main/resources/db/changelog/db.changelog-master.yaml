@@ -11,3 +11,5 @@ databaseChangeLog:
     file: 05_insert_roles.sql
 - include:
       file: 06_insert_admin.sql
+- include:
+    file: 07_create_VerificationToken_table.sql
