@@ -8,6 +8,9 @@
           name="viewport"/>
     <title>Strona główna - Smart Calendar</title>
 
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
+
     <link rel="stylesheet" th:href="@{/modules/bootstrap/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/modules/ionicons/css/ionicons.min.css}"/>
     <link rel="stylesheet" th:href="@{/modules/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css}"/>
@@ -35,16 +38,16 @@
             </div>
         </form>
         <ul class="navbar-nav navbar-right">
+
             <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg">
                 <i class="ion ion-android-person d-lg-none"></i>
-                <div class="d-sm-none d-lg-inline-block">Witaj, Jank Kulawik!</div>
-            </a>
+                <div class="d-sm-none d-lg-inline-block" th:text="'Witaj, ' + ${loggedInUser.getFirstName() + '!'}" ></div></a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a href="profile.html" class="dropdown-item has-icon">
-                        <i class="ion ion-android-person"></i> Mój profil
+                    <a href="#" class="dropdown-item has-icon">
+                        <i class="ion ion-android-person"></i> Profile
                     </a>
                     <a href="#" class="dropdown-item has-icon">
-                        <i class="ion ion-log-out"></i> Wyloguj
+                        <i class="ion ion-log-out"></i> Logout
                     </a>
                 </div>
             </li>
@@ -59,13 +62,10 @@
         </div>
         <div class="sidebar-user">
             <div class="sidebar-user-picture">
-                <img alt="image" src="/img/avatar/avatar-1.jpeg"/>
+                <img alt="image" src="/img/avatar/avatar-0.jpeg"/>
             </div>
             <div class="sidebar-user-details">
-                <div class="user-name">Jan Kulawik</div>
-                <div class="user-role">
-                    Administrator
-                </div>
+                <div class="user-name" th:text="${loggedInUser.getFirstName() + ' ' + loggedInUser.getLastName()}"></div>
             </div>
         </div>
         <ul class="sidebar-menu">
@@ -74,34 +74,33 @@
                 <a href="#" class="has-dropdown"><i
                         class="ion ion-ios-albums-outline"></i><span>Wydarzenia</span></a>
                 <ul class="menu-dropdown">
-                    <li><a href="general.html"><i class="ion ion-ios-circle-outline"></i> Dzisiaj</a></li>
-                    <li><a href="components.html"><i class="ion ion-ios-circle-outline"></i> W tym tygodniu</a>
-                    </li>
-                    <li><a href="buttons.html"><i class="ion ion-ios-circle-outline"></i> W tym miesiącu</a>
-                    </li>
-                    <li><a href="toastr.html"><i class="ion ion-ios-circle-outline"></i> W tym roku</a></li>
+                    <li><a th:href="showevents"><i class="ion ion-ios-circle-outline"></i> Wyświetl wydarzenia</a></li>
+                    <li><a th:href="addevent"><i class="ion ion-ios-circle-outline"></i> Dodaj wydarzenie</a></li>
                 </ul>
             </li>
             <li>
-                <a href="#"><i class="ion ion-clipboard"></i><span>Notatki</span></a>
+                <a th:href="nopage"><i class="ion ion-clipboard"></i><span>Notatki</span></a>
             </li>
             <li>
-                <a href="table.html"><i class="ion-ios-alarm-outline"></i><span>Przypomnienia</span></a>
+                <a th:href="nopage"><i class="ion-ios-alarm-outline"></i><span>Przypomnienia</span></a>
             </li>
             <li>
-                <a href="chartjs.html"><i class="ion-android-cart"></i><span>Lista zakupów</span></a>
+                <a th:href="nopage"><i class="ion-android-cart"></i><span>Lista zakupów</span></a>
             </li>
             <li>
-                <a href="chartjs.html"><i class="ion-ios-people"></i><span>Znajomi</span></a>
+                <a th:href="nopage"><i class="ion-ios-people"></i><span>Znajomi</span></a>
             </li>
         </ul>
         <ul class="sidebar-menu">
             <li class="menu-header">Mój profil</li>
             <li>
-                <a href="#"><i class="ion-ios-color-wand"></i><span>Edytuj mój profil</span></a>
+                <a th:href="nopage"><i class="ion-ios-color-wand"></i><span>Edytuj mój profil</span></a>
             </li>
             <li>
-                <a href="table.html"><i class="ion-gear-b"></i><span>Ustawienia</span></a>
+                <a th:href="nopage"><i class="ion-gear-b"></i><span>Ustawienia</span></a>
+            </li>
+            <li>
+                <a th:href="nopage"><i class="ion-power"></i><span>Wyloguj</span></a>
             </li>
         </ul>
     </aside>

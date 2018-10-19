@@ -1,5 +1,6 @@
 package com.sda.smartCalendar.service;
 
+import com.sda.smartCalendar.controller.modelDTO.UserDTO;
 import com.sda.smartCalendar.controller.modelDTO.UserRegistrationDTO;
 import com.sda.smartCalendar.domain.IUserService;
 import com.sda.smartCalendar.domain.model.User;
@@ -24,7 +25,7 @@ public class UserService implements IUserService {
     private VerificationTokenRepository tokenRepository;
 
     @Autowired
-    RoleRepository roleRepository;
+    private RoleRepository roleRepository;
 
     @Autowired
     private MappingService mappingService;
@@ -45,6 +46,10 @@ public class UserService implements IUserService {
         return user;
     }
 
+    public UserDTO findByEmail(String email) {
+        UserDTO userDTO = mappingService.map(userRepository.findByEmail(email));
+        return userDTO;
+    }
     @Override
     public User getUser(String verificationToken) {
         User user = tokenRepository.findByToken(verificationToken).getUser();

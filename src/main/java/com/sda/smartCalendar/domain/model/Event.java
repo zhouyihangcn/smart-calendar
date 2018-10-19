@@ -1,9 +1,7 @@
 
 package com.sda.smartCalendar.domain.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -16,6 +14,8 @@ import java.util.UUID;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(exclude = {"user"})
+@ToString(exclude = {"user"})
 public class Event {
 
     @Id
@@ -35,11 +35,9 @@ public class Event {
     private String description;
 
     @Column
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime event_start;
 
     @Column
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") // i tak sie tego nie slucha
     private LocalDateTime event_finish;
 
     @ManyToOne

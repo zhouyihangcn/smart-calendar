@@ -1,11 +1,14 @@
 package com.sda.smartCalendar.controller;
 
+import com.sda.smartCalendar.controller.modelDTO.EventDTO;
+import com.sda.smartCalendar.controller.modelDTO.UserDTO;
 import com.sda.smartCalendar.controller.modelDTO.UserRegistrationDTO;
 import com.sda.smartCalendar.domain.IUserService;
 import com.sda.smartCalendar.domain.OnRegistrationCompleteEvent;
 import com.sda.smartCalendar.domain.model.User;
 import com.sda.smartCalendar.domain.model.VerificationToken;
 import com.sda.smartCalendar.domain.repository.UserRepository;
+import com.sda.smartCalendar.service.MappingService;
 import com.sda.smartCalendar.service.UserService;
 import com.sda.smartCalendar.social.providers.FacebookProvider;
 import com.sda.smartCalendar.social.providers.GoogleProvider;
@@ -23,22 +26,26 @@ import org.springframework.web.context.request.WebRequest;
 import javax.validation.Valid;
 import java.util.Calendar;
 import java.util.Locale;
+import java.security.Principal;
 
 
 @Controller
 public class UserController {
 
     @Autowired
-    FacebookProvider facebookProvider;
+    private FacebookProvider facebookProvider;
 
     @Autowired
-    GoogleProvider googleProvider;
+    private GoogleProvider googleProvider;
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private MappingService mappingService;
 
     @RequestMapping(value = "/facebook", method = RequestMethod.GET)
     public String loginToFacebook(Model model) {
@@ -61,9 +68,17 @@ public class UserController {
     }
 
     @GetMapping("/index")
-    public String showMainPage() {
+    public String showMainPage(Model model, Principal principal) {
+        model.addAttribute("loggedInUser", userService.findByEmail(principal.getName()));
         return "index";
     }
+
+
+    @GetMapping("/nopage")
+    public String nopage() {
+        return "nopage";
+    }
+
 
     /**
      * If we can't find a user/email combination
@@ -98,7 +113,12 @@ public class UserController {
 
         model.addAttribute("loggedInUser", userRegistrationDTO);
         //Do sprawdzenia
-        bindingResult.rejectValue("email", "message.regError");
+        if (userService.findByEmail(userRegistrationDTO.getEmail()) != null) {
+            return "redirect:/registration?failed";
+        }
+        if (bindingResult.hasErrors()) {
+            return "registration";
+        }
 
         User registered = userService.registerUser(userRegistrationDTO);
         String appUrl = request.getContextPath();

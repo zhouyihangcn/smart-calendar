@@ -1,17 +1,7 @@
 package com.sda.smartCalendar.domain.model;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import lombok.*;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.Email;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.HashSet;
@@ -19,8 +9,10 @@ import java.util.Set;
 
 @Data
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(exclude = {"events", "roles"})
+@ToString(exclude = {"events", "roles"})
 public class User {
 
 	@Id
