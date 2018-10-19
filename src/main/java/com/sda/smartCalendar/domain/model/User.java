@@ -33,4 +33,15 @@ public class User {
 
 	@OneToMany (mappedBy = "user")
 	private Set<Event> events = new HashSet<>();
+
+	@Column(name = "enabled")
+	private boolean enabled;
+
+	@Column(name = "phone_number")
+	private String phoneNumber;
+
+	public User(String s, String gosia, String bak, String s1, String s2, String fb, long l, boolean b) {
+		super();
+		this.enabled=false;
+	}
 }
