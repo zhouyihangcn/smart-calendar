@@ -113,7 +113,12 @@ public class UserController {
 
         model.addAttribute("loggedInUser", userRegistrationDTO);
         //Do sprawdzenia
-        bindingResult.rejectValue("email", "message.regError");
+        if (userService.findByEmail(userRegistrationDTO.getEmail()) != null) {
+            return "redirect:/registration?failed";
+        }
+        if (bindingResult.hasErrors()) {
+            return "registration";
+        }
 
         User registered = userService.registerUser(userRegistrationDTO);
         String appUrl = request.getContextPath();
