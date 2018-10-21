@@ -35,15 +35,17 @@ public class UserRegistrationDTO {
     @Size(min = 3, max = 30, message = "Pole musi zawierać od 3 do 30 znaków")
     private String lastName;
 
-    @NotEmpty
+    @NotEmpty(message = "Pole nie może być puste")
+    @Size(min = 6, message = "Pole musi zawierać minimum 6 znaków")
     private String password;
 
-    @NotEmpty
+    @NotEmpty(message = "Pole nie może być puste")
+    @Size(min = 6, message = "Pole musi zawierać minimum 6 znaków")
     private String passwordConfirm;
 
     private String provider;
 
-    @AssertTrue
+    @AssertTrue(message = "Nie wyraziłeś zgody")
     private Boolean terms;
 }
 

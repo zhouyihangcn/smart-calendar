@@ -46,9 +46,6 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private MappingService mappingService;
-
     @RequestMapping(value = "/facebook", method = RequestMethod.GET)
     public String loginToFacebook(Model model) {
         return facebookProvider.getFacebookUserData(model, new User());
@@ -99,7 +96,6 @@ public class UserController {
         model.addAttribute("loggedInUser", user);
     }
 
-
     @Autowired
     ApplicationEventPublisher eventPublisher;
 
@@ -113,12 +109,8 @@ public class UserController {
     public String registerUser(@ModelAttribute("userRegistrationDTO") @Valid UserRegistrationDTO userRegistrationDTO, BindingResult bindingResult, WebRequest request) {
 
         if (bindingResult.hasErrors()) {
-            if(userRegistrationDTO.getPassword()!=userRegistrationDTO.getPasswordConfirm()){
-                return "redirect:/registration?passworderror";
-            }
             return "registration";
         }
-
         if (userService.findByEmail(userRegistrationDTO.getEmail()) != null) {
             return "redirect:/registration?failed";
         }
@@ -127,7 +119,7 @@ public class UserController {
         String appUrl = request.getContextPath();
         eventPublisher.publishEvent(new OnRegistrationCompleteEvent
                 (registered, request.getLocale(), appUrl));
-        return "redirect:/login";
+        return "redirect:/registration?success";
     }
 
     @RequestMapping(value = "/registrationConfirm", method = RequestMethod.GET)
@@ -154,6 +146,11 @@ public class UserController {
         service.saveRegisteredUser(user);
         //return "redirect:/login.html?lang=" + request.getLocale().getLanguage();
         //return "redirect:/login?lang=" + request.getLocale().getLanguage();
-        return "redirect:/login";
+        return "redirect:/login?confirm";
+    }
+
+    @GetMapping("/register")
+    public String confirmRegistration(){
+        return "register";
     }
 }
