@@ -128,29 +128,25 @@ public class UserController {
         Locale locale = request.getLocale();
         VerificationToken verificationToken = service.getVerificationToken(token);
         if (verificationToken == null) {
-            String message = messages.getMessage("auth.message.invalidToken", null, locale);
-            model.addAttribute("message", message);
-            //return "redirect:/badUser.html?lang=" + locale.getLanguage();
-            return "redirect:/badUser?lang=" + locale.getLanguage();
+            return "redirect:/badUser?invalidToken";
         }
         User user = verificationToken.getUser();
         Calendar cal = Calendar.getInstance();
         if ((verificationToken.getExpiryDate().getTime() - cal.getTime().getTime()) <= 0) {
-            String messageValue = messages.getMessage("auth.message.expired", null, locale);
-            model.addAttribute("message", messageValue);
-            //return "redirect:/badUser.html?lang=" + locale.getLanguage();
-            return "redirect:/badUser?lang=" + locale.getLanguage();
+            return "redirect:/badUser?expired";
         }
         user.setEnabled(true);
-
         service.saveRegisteredUser(user);
-        //return "redirect:/login.html?lang=" + request.getLocale().getLanguage();
-        //return "redirect:/login?lang=" + request.getLocale().getLanguage();
         return "redirect:/login?confirm";
     }
 
-    @GetMapping("/register")
-    public String confirmRegistration(){
-        return "register";
+    @GetMapping("/terms")
+    public String showTerms() {
+        return "terms";
+    }
+
+    @GetMapping("/badUser")
+    public String badUser() {
+        return "badUser";
     }
 }
