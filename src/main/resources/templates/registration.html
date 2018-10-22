@@ -9,68 +9,103 @@
 <div id="app">
     <section class="section">
         <div class="container mt-5">
+
+
+            <div th:if="${param.failed}">
+                <div class="alert alert-danger" style="text-align:center">
+                    Użytkownik o podanym adresie email już istnieje.
+                </div>
+            </div>
+
+            <div th:if="${param.success}">
+                <div class="alert alert-info" style="text-align:center">
+                    Aby zakończyć proces rejestracji kliknij w link wysłany na podany adres email.
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
                     <div class="login-brand">
                         SMART CALENDAR
                     </div>
-
                     <div class="card card-primary">
                         <div class="card-header"><h4>Rejestracja</h4></div>
-
                         <div class="card-body">
                             <form th:action="@{/registration}" th:object="${userRegistrationDTO}" method="post">
                                 <div class="row">
-                                    <div class="form-group col-6">
+                                    <div class="form-group col-6"
+                                         th:classappend="${#fields.hasErrors('firstName')}? 'has-error':''">
                                         <label for="frist_name">Imię</label>
                                         <input id="frist_name" type="text" class="form-control" name="frist_name"
                                                th:field="*{firstName}" autofocus=''/>
-                                        <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"
-                                             class="alert alert-danger"></div>
+                                        <div class="alert alert-danger"
+                                             th:each="error : ${#fields.errors('firstName')}"
+                                             th:text="${error}">Validation error
+                                        </div>
                                     </div>
-                                    <div class="form-group col-6">
+                                    <div class="form-group col-6"
+                                         th:classappend="${#fields.hasErrors('lastName')}? 'has-error':''">
                                         <label for="last_name">Nazwisko</label>
                                         <input id="last_name" type="text" class="form-control" name="last_name"
                                                th:field="*{lastName}"/>
-                                        <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
-                                             class="alert alert-danger"></div>
+                                        <div class="alert alert-danger"
+                                             th:each="error : ${#fields.errors('lastName')}"
+                                             th:text="${error}">Validation error
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group"
+                                     th:classappend="${#fields.hasErrors('email')}? 'has-error':''">
                                     <label for="email">Email</label>
                                     <input id="email" type="email" class="form-control" name="email"
                                            th:field="*{email}"/>
-                                    <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
-                                         class="alert alert-danger"></div>
+                                    <div class="alert alert-danger"
+                                         th:each="error : ${#fields.errors('email')}"
+                                         th:text="${error}">Validation error
+                                    </div>
                                 </div>
-
                                 <div class="row">
-                                    <div class="form-group col-6">
+                                    <div class="form-group col-6"
+                                         th:classappend="${#fields.hasErrors('password')}? 'has-error':''">
                                         <label for="password" class="d-block">Hasło</label>
                                         <input id="password" type="password" class="form-control" name="password"
                                                th:field="*{password}"/>
-                                        <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
-                                             class="alert alert-danger"></div>
+                                        <div class="alert alert-danger"
+                                             th:each="error : ${#fields.errors('password')}"
+                                             th:text="${error}">Validation error
+                                        </div>
                                     </div>
-
-                                    <div class="form-group col-6">
-                                        <label for="password2" class="d-block">Potwierdź hasło</label>
-                                        <input id="password2" type="password" class="form-control"
-                                               name="password-confirm"
+                                    <div class="form-group col-6"
+                                         th:classappend="${#fields.hasErrors('passwordConfirm')}? 'has-error':''">
+                                        <label for="passwordConfirm" class="d-block">Potwierdź hasło</label>
+                                        <input id="passwordConfirm" type="password" class="form-control"
+                                               name="passwordConfirm"
                                                th:field="*{passwordConfirm}"/>
-                                        <div th:if="${#fields.hasErrors('passwordConfirm')}"
-                                             th:errors="*{passwordConfirm}" class="alert alert-danger"></div>
+                                        <div class="alert alert-danger"
+                                             th:each="error : ${#fields.errors('passwordConfirm')}"
+                                             th:text="${error}">Validation error
+                                        </div>
+                                        <div class="alert alert-danger"
+                                             th:if="${#fields.hasGlobalErrors()}"
+                                             th:each="error : ${#fields.errors('global')}"
+                                             th:text="${error}">Validation error
+                                        </div>
                                     </div>
                                 </div>
-
-                                <div class="form-group">
+                                <div class="form-group"
+                                     th:classappend="${#fields.hasErrors('terms')}? 'has-error':''">
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" name="agree" class="custom-control-input" id="agree"/>
-                                        <label class="custom-control-label" for="agree">Akceptuję warunki korzystania z
-                                            serwisu</label>
+                                        <input type="checkbox" name="agree" class="custom-control-input" id="agree"
+                                               th:field="*{terms}"/>
+                                        <label class="custom-control-label" for="agree">Akceptuję <a href="terms.html"> warunki
+                                            korzystania z
+                                            serwisu</a></label>
+                                        <div class="alert alert-danger"
+                                             th:each="error : ${#fields.errors('terms')}"
+                                             th:text="${error}">Validation error
+                                        </div>
                                     </div>
                                 </div>
-
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary btn-block">
                                         Zarejestruj
@@ -78,6 +113,10 @@
                                 </div>
                             </form>
                         </div>
+                    </div>
+
+                    <div class="mt-5 text-muted text-center">
+                        Jesteś zarejestrowany? Przejdź na stronę <a href="login.html">logowania.</a>
                     </div>
                     <div class="simple-footer">
                         Copyright &copy; Smart Calendar 2018

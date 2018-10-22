@@ -23,6 +23,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.Calendar;
 import java.util.Locale;
@@ -43,9 +45,6 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
-
-    @Autowired
-    private MappingService mappingService;
 
     @RequestMapping(value = "/facebook", method = RequestMethod.GET)
     public String loginToFacebook(Model model) {
@@ -97,7 +96,6 @@ public class UserController {
         model.addAttribute("loggedInUser", user);
     }
 
-
     @Autowired
     ApplicationEventPublisher eventPublisher;
 
@@ -108,23 +106,20 @@ public class UserController {
     private MessageSource messages;
 
     @PostMapping("/registration")
-    public String registerUser(@Valid UserRegistrationDTO userRegistrationDTO, Model model, BindingResult bindingResult,
-                               WebRequest request) {
+    public String registerUser(@ModelAttribute("userRegistrationDTO") @Valid UserRegistrationDTO userRegistrationDTO, BindingResult bindingResult, WebRequest request) {
 
-        model.addAttribute("loggedInUser", userRegistrationDTO);
-        //Do sprawdzenia
-        if (userService.findByEmail(userRegistrationDTO.getEmail()) != null) {
-            return "redirect:/registration?failed";
-        }
         if (bindingResult.hasErrors()) {
             return "registration";
+        }
+        if (userService.findByEmail(userRegistrationDTO.getEmail()) != null) {
+            return "redirect:/registration?failed";
         }
 
         User registered = userService.registerUser(userRegistrationDTO);
         String appUrl = request.getContextPath();
         eventPublisher.publishEvent(new OnRegistrationCompleteEvent
                 (registered, request.getLocale(), appUrl));
-        return "login";
+        return "redirect:/registration?success";
     }
 
     @RequestMapping(value = "/registrationConfirm", method = RequestMethod.GET)
@@ -133,24 +128,25 @@ public class UserController {
         Locale locale = request.getLocale();
         VerificationToken verificationToken = service.getVerificationToken(token);
         if (verificationToken == null) {
-            String message = messages.getMessage("auth.message.invalidToken", null, locale);
-            model.addAttribute("message", message);
-            //return "redirect:/badUser.html?lang=" + locale.getLanguage();
-            return "redirect:/badUser?lang=" + locale.getLanguage();
+            return "redirect:/badUser?invalidToken";
         }
         User user = verificationToken.getUser();
         Calendar cal = Calendar.getInstance();
         if ((verificationToken.getExpiryDate().getTime() - cal.getTime().getTime()) <= 0) {
-            String messageValue = messages.getMessage("auth.message.expired", null, locale);
-            model.addAttribute("message", messageValue);
-            //return "redirect:/badUser.html?lang=" + locale.getLanguage();
-            return "redirect:/badUser?lang=" + locale.getLanguage();
+            return "redirect:/badUser?expired";
         }
         user.setEnabled(true);
-
         service.saveRegisteredUser(user);
-        //return "redirect:/login.html?lang=" + request.getLocale().getLanguage();
-        //return "redirect:/login?lang=" + request.getLocale().getLanguage();
-        return "redirect:/login";
+        return "redirect:/login?confirm";
+    }
+
+    @GetMapping("/terms")
+    public String showTerms() {
+        return "terms";
+    }
+
+    @GetMapping("/badUser")
+    public String badUser() {
+        return "badUser";
     }
 }

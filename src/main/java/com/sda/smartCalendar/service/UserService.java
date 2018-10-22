@@ -46,9 +46,9 @@ public class UserService implements IUserService {
         return user;
     }
 
-    public UserDTO findByEmail(String email) {
-        UserDTO userDTO = mappingService.map(userRepository.findByEmail(email));
-        return userDTO;
+    public User findByEmail(String email) {
+        User user = userRepository.findByEmail(email);
+        return user;
     }
     @Override
     public User getUser(String verificationToken) {

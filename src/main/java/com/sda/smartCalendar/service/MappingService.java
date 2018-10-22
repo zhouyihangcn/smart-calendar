@@ -20,13 +20,13 @@ public class MappingService {
         return user;
     }
 
-    public UserDTO map(User user){
-        UserDTO userDTO = new UserDTO();
-        userDTO.setEmail(user.getEmail());
-        userDTO.setFirstName(user.getFirstName());
-        userDTO.setLastName(user.getLastName());
-        userDTO.setPassword(user.getPassword());
-        return userDTO;
+    public UserRegistrationDTO map(User user){
+        UserRegistrationDTO userRegistrationDTO = new UserRegistrationDTO();
+        userRegistrationDTO.setEmail(user.getEmail());
+        userRegistrationDTO.setFirstName(user.getFirstName());
+        userRegistrationDTO.setLastName(user.getLastName());
+        userRegistrationDTO.setPassword(user.getPassword());
+        return userRegistrationDTO;
     }
 
     public Event map(EventDTO eventDTO){
