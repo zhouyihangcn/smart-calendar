@@ -18,8 +18,9 @@
                     <div>Wydarzenie</div>
                 </h1>
                 <div class="row">
-                    <div class="col-lg-12 col-md-12 col-12 col-sm-12">
-                        <form  th:action="@{/addevent}" method="post" th:object="${eventDTO}" class="needs-validation" novalidate="">
+                    <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
+                        <div class="card card-primary">
+                        <form  th:action="@{/addevent}" method="post" th:object="${eventDTO}">
                             <div class="card">
                                 <div class="card-header">
                                     <h4>Utwórz wydarzenie</h4>
@@ -27,26 +28,31 @@
                                 <div class="card-body">
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                            <label>Początek</label>
+                                            <label>Data rozpoczęcia</label>
                                             <input type="datetime-local" class="form-control"
                                                    th:field="*{event_start}"/>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label>Koniec</label>
+                                            <label>Data zakończenia</label>
                                             <input type="datetime-local" class="form-control"
                                                    th:field="*{event_finish}"/>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label>Tytuł</label>
-                                        <input type="text" name="title" class="form-control" required="required" th:field="*{name}"/>
-                                        <div class="invalid-feedback">
-                                            Dodaj tytuł
+                                    <div class="form-group" th:classappend="${#fields.hasErrors('name')}? 'has-error':''">
+                                        <label>Nazwa wydarzenia</label>
+                                        <input type="text" name="title" class="form-control" th:field="*{name}"/>
+                                        <div class="alert alert-danger"
+                                             th:each="error : ${#fields.errors('name')}"
+                                             th:text="${error}">Validation error
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label>Treść</label>
+                                    <div class="form-group" th:classappend="${#fields.hasErrors('description')}? 'has-error':''">
+                                        <label>Opis</label>
                                         <textarea class="summernote-simple" th:field="*{description}"></textarea>
+                                        <div class="alert alert-danger"
+                                             th:each="error : ${#fields.errors('description')}"
+                                             th:text="${error}">Validation error
+                                        </div>
                                     </div>
                                     <div class="form-group"><label>Priorytet</label>
                                         <input class="form-control" value="50" type="range"/></div>
@@ -59,11 +65,8 @@
                                                 th:value="${aCategory}"
                                                 th:text="${aCategory.getName()}">
                                         </option>
-
-
                                     </select>
                                     </div>
-
                                 </div>
                                 <div class="card-footer">
                                     <button class="btn btn-primary">Zapisz</button>
@@ -72,11 +75,9 @@
                         </form>
                     </div>
                 </div>
-
+                </div>
             </section>
         </div>
-
-
     </div>
 </div>
 

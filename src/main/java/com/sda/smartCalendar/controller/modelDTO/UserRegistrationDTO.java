@@ -24,23 +24,23 @@ import javax.validation.constraints.Size;
 public class UserRegistrationDTO {
 
     @NotEmpty(message = "Pole nie może być puste")
-    @Size(min = 3, max = 30, message = "Pole musi zawierać od 3 do 30 znaków")
+    @Size(min = 3, max = 30, message = "Pole może zawierać od 3 do 30 znaków")
     private String email;
 
     @NotEmpty(message = "Pole nie może być puste")
-    @Size(min = 3, max = 30, message = "Pole musi zawierać od 3 do 30 znaków")
+    @Size(min = 3, max = 30, message = "Pole może zawierać od 3 do 30 znaków")
     private String firstName;
 
     @NotEmpty(message = "Pole nie może być puste")
-    @Size(min = 3, max = 30, message = "Pole musi zawierać od 3 do 30 znaków")
+    @Size(min = 3, max = 30, message = "Pole może zawierać od 3 do 30 znaków")
     private String lastName;
 
     @NotEmpty(message = "Pole nie może być puste")
-    @Size(min = 6, message = "Pole musi zawierać minimum 6 znaków")
+    @Size(min = 6, message = "Pole może zawierać minimum 6 znaków")
     private String password;
 
     @NotEmpty(message = "Pole nie może być puste")
-    @Size(min = 6, message = "Pole musi zawierać minimum 6 znaków")
+    @Size(min = 6, message = "Pole może zawierać minimum 6 znaków")
     private String passwordConfirm;
 
     private String provider;

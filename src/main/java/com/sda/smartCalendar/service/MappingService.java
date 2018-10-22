@@ -31,6 +31,7 @@ public class MappingService {
 
     public Event map(EventDTO eventDTO){
         Event event = new Event();
+        event.setId(eventDTO.getId());
         event.setName(eventDTO.getName());
         event.setDescription(eventDTO.getDescription());
         event.setEvent_finish(eventDTO.getEvent_finish());
@@ -42,6 +43,7 @@ public class MappingService {
 
     public EventDTO map (Event event){
         EventDTO eventDTO = new EventDTO();
+        eventDTO.setId(event.getId());
         eventDTO.setName(event.getName());
         eventDTO.setDescription(event.getDescription());
         eventDTO.setEvent_finish(event.getEvent_finish());
