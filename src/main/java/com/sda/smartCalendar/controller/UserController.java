@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -39,6 +40,15 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    ApplicationEventPublisher eventPublisher;
+
+    @Autowired
+    private IUserService service;
+
+    @Autowired
+    private MessageSource messages;
 
     @RequestMapping(value = "/facebook", method = RequestMethod.GET)
     public String loginToFacebook(Model model) {
@@ -60,8 +70,14 @@ public class UserController {
         return "registration";
     }
 
+    @GetMapping("/logout")
+    public String logout() {
+        return "logout";
+    }
+
     @GetMapping("/index")
-    public String showMainPage() {
+    public String showMainPage(Model model) {
+
         return "index";
     }
 
@@ -73,7 +89,6 @@ public class UserController {
         model.addAttribute("loginError", true);
         return "login";
     }
-
     //?
     @ModelAttribute("loggedInUser")
     public void secureUser(Model model) {
@@ -81,16 +96,6 @@ public class UserController {
         User user = userRepository.findByEmail(auth.getName());
         model.addAttribute("loggedInUser", user);
     }
-
-
-    @Autowired
-    ApplicationEventPublisher eventPublisher;
-
-    @Autowired
-    private IUserService service;
-
-    @Autowired
-    private MessageSource messages;
 
     @PostMapping("/registration")
     public String registerUser(@Valid UserRegistrationDTO userRegistrationDTO, Model model, BindingResult bindingResult,
@@ -115,7 +120,6 @@ public class UserController {
         if (verificationToken == null) {
             String message = messages.getMessage("auth.message.invalidToken", null, locale);
             model.addAttribute("message", message);
-            //return "redirect:/badUser.html?lang=" + locale.getLanguage();
             return "redirect:/badUser?lang=" + locale.getLanguage();
         }
         User user = verificationToken.getUser();
@@ -123,14 +127,41 @@ public class UserController {
         if ((verificationToken.getExpiryDate().getTime() - cal.getTime().getTime()) <= 0) {
             String messageValue = messages.getMessage("auth.message.expired", null, locale);
             model.addAttribute("message", messageValue);
-            //return "redirect:/badUser.html?lang=" + locale.getLanguage();
             return "redirect:/badUser?lang=" + locale.getLanguage();
         }
         user.setEnabled(true);
-
         service.saveRegisteredUser(user);
-        //return "redirect:/login.html?lang=" + request.getLocale().getLanguage();
-        //return "redirect:/login?lang=" + request.getLocale().getLanguage();
         return "redirect:/login";
+    }
+
+    @GetMapping("/profile")
+    public String showProfie(Model model, Principal principal){
+        model.addAttribute("userProfile",userService.findUserByEmail(principal.getName()));
+        return "profile";
+    }
+
+    @GetMapping("/editUserProfile")
+    public String editUserProfile(Model model, Principal principal, @RequestParam("typedFields") String typedFields){
+
+        if (typedFields.equals("firstName")) {
+            model.addAttribute("userProfile", userService.findUserByEmail(principal.getName()));
+            model.addAttribute("userField", "firstName");
+        }
+        if (typedFields.equals("lastName")) {
+            model.addAttribute("userProfile", userService.findUserByEmail(principal.getName()));
+            model.addAttribute("userField", "lastName");
+        }
+        if (typedFields.equals("phoneNumber")) {
+            model.addAttribute("userProfile", userService.findUserByEmail(principal.getName()));
+            model.addAttribute("userField", "phoneNumber");
+        }
+        return "editProfile";
+    }
+
+    @PostMapping("/editUserProfile")
+    public String updateUserProfile(Model model, Principal principal, UserRegistrationDTO userRegistrationDTO) {
+        model.addAttribute("userProfile", userRegistrationDTO);
+        userService.editProfile(userRegistrationDTO, principal);
+        return "redirect:/profile";
     }
 }

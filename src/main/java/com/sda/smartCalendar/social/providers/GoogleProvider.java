@@ -32,11 +32,9 @@ public class GoogleProvider   {
 		
 		//Login the User
 		baseProvider.autoLoginUser(userForm);
-				
 		model.addAttribute("loggedInUser",userForm);
 		return "index";
 	}
-
 
 	protected void populateUserDetailsFromGoogle(User userform) {
 		Google google = baseProvider.getGoogle();
@@ -44,6 +42,7 @@ public class GoogleProvider   {
 		userform.setEmail(googleUser.getAccountEmail());
 		userform.setFirstName(googleUser.getGivenName());
 		userform.setLastName(googleUser.getFamilyName());
+		userform.setEnabled(true);
 		userform.setProvider(GOOGLE);
 	}
 

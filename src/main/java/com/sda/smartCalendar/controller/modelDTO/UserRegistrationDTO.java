@@ -37,5 +37,8 @@ public class UserRegistrationDTO {
 
     @AssertTrue
     private Boolean terms;
+
+    @NotEmpty
+    private String phoneNumber;
 }
 

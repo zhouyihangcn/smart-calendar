@@ -22,19 +22,32 @@
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <tr>
-                                        <td class="col-md-2">Imię użytkownika</td>
+                                        <td class="col-md-2">Imię </td>
                                         <td class="col-md-3" th:text="${userProfile.getFirstName()}"></td>
-                                        <td><a th:href="@{/editUserProfile}" class="btn btn-action btn-secondary">Edytuj</a></td>
+                                        <td><a th:href="${'/editUserProfile?typedFields=firstName'}"  class="btn btn-action btn-secondary">Edytuj</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-md-2">Nazwisko</td>
+                                        <td class="col-md-3" th:text="${userProfile.getLastName()}"></td>
+                                        <td><a th:href="${'/editUserProfile?typedFields=lastName'}" class="btn btn-action btn-secondary">Edytuj</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-md-2">Numer telefonu</td>
+                                        <td class="col-md-3" th:text="${userProfile.getPhoneNumber()}"></td>
+                                        <td><a th:href="${'/editUserProfile?typedFields=phoneNumber'}" class="btn btn-action btn-secondary">Edytuj</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-md-2">Adres mailowy do kontaktu</td>
+                                        <td class="col-md-3" th:text="${userProfile.getEmail()}"></td>
                                     </tr>
                                 </table>
                             </div>
                         </div>
-
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary btn-block">
-                                Zatwierdź
+                        <a th:href="@{/index}">
+                            <button type="button" value="Wróć do strony głównej" class="btn btn-primary btn-block">
+                                Wróć do strony głównej
                             </button>
-                        </div>
+                        </a>
                     </div>
                     <div class="simple-footer">
                         Copyright &copy; Smart Calendar 2018

@@ -47,9 +47,4 @@ public class User {
 
 	@Column(name = "phone_number")
 	private String phoneNumber;
-
-	public User(String s, String gosia, String bak, String s1, String s2, String fb, long l, boolean b) {
-		super();
-		this.enabled=false;
-	}
 }

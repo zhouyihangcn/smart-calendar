@@ -19,6 +19,7 @@ public class MappingService {
         user.setLastName(userRegistrationDTO.getLastName());
         user.setPassword(userRegistrationDTO.getPassword());
         user.setProvider(userRegistrationDTO.getProvider());
+        user.setPhoneNumber(userRegistrationDTO.getPhoneNumber());
         return user;
     }
 
@@ -44,5 +45,15 @@ public class MappingService {
         return eventDTO;
     }
 
+    public UserRegistrationDTO map(User user) {
+        UserRegistrationDTO userRegistrationDTO = new UserRegistrationDTO();
+        userRegistrationDTO.setEmail(user.getEmail());
+        userRegistrationDTO.setFirstName(user.getFirstName());
+        userRegistrationDTO.setLastName(user.getLastName());
+        userRegistrationDTO.setPassword(user.getPassword());
+        userRegistrationDTO.setProvider(user.getProvider());
+        userRegistrationDTO.setPhoneNumber(user.getPhoneNumber());
+        return userRegistrationDTO;
+    }
 
 }
