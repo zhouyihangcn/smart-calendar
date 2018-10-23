@@ -76,9 +76,15 @@ public class EventController {
         return "editevent";
     }
 
-
-
-
+    @PostMapping(path = "/editevent/{id}")
+    public String editEvent(@PathVariable("id") UUID id, @ModelAttribute("eventDTO") @Valid EventDTO eventDTO, BindingResult bindingResult, Principal principal, Model model) {
+        model.addAttribute("loggedInUser", userService.findByEmail(principal.getName()));
+        if (bindingResult.hasErrors()) {
+            return "/editevent/{id}";
+        }
+        eventService.addEvent(eventDTO, principal);
+        return "redirect:/showevents/{id}";
+    }
 
     @Transactional
     @GetMapping("/delete/{event}")
@@ -87,5 +93,8 @@ public class EventController {
         return "redirect:/showevents";
     }
 
-
+    @GetMapping("/date")
+    public String picker() {
+        return "date";
+    }
 }

@@ -18,17 +18,23 @@
                     <div>Wydarzenia</div>
                 </h1>
                 <div class="section-body">
-
                     <div class="row">
                         <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
                             <div class="card card-primary">
-
+                                <form  th:action="${'/editevent/' + eventDTO.getId()}" method="post" th:object="${eventDTO}">
+                                <div class="card-header">
+                                    <h4>Edytuj wydarzenie</h4>
+                                </div>
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="form-group col-12">
+                                        <div class="form-group col-12" th:classappend="${#fields.hasErrors('name')}? 'has-error':''">
                                             <label for="name">Nazwa wydarzenia</label>
-                                            <input id="name" type="text" class="form-control" name="name"
+                                            <input id="name" type="text" class="form-control" th:field="*{name}"
                                                    th:value="${eventDTO.getName()}"/>
+                                            <div class="alert alert-danger"
+                                                 th:each="error : ${#fields.errors('name')}"
+                                                 th:text="${error}">Validation error
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -49,19 +55,27 @@
 
                                     </div>
                                     <div class="row">
-                                        <div class="form-group col-12">
+                                        <div class="form-group col-12" th:classappend="${#fields.hasErrors('description')}? 'has-error':''">
                                             <label for="description">Opis</label>
                                             <textarea id="description" type="text" class="form-control"
-                                                      name="description"
-                                                      th:value="${eventDTO.getDescription()}"/>
+                                                      th:field="*{description}"
+                                                      th:value="${eventDTO.getDescription()}"></textarea>
+                                            <div class="alert alert-danger"
+                                                 th:each="error : ${#fields.errors('description')}"
+                                                 th:text="${error}">Validation error
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-6">
-                                            <label for="category">Kategoria</label>
-                                            <input id="category" type="text" class="form-control" name="category"
-                                                   th:value="${eventDTO.getCategory()}"
-                                                   style="text-align: center"/>
+                                            <label>Kategoria</label><select
+                                                class="form-control form-control-lg" th:field="*{category}">
+                                            <option th:value="${eventDTO.getName()}" selected="selected">Wybierz kategorię...</option>
+                                            <option th:each="aCategory : ${categories}"
+                                                    th:value="${aCategory}"
+                                                    th:text="${aCategory.getName()}">
+                                            </option>
+                                        </select>
                                         </div>
                                         <div class="form-group col-6">
                                             <label for="alert">Przypomnienia</label>
@@ -72,17 +86,10 @@
                                     </div>
                                 </div>
 
-                                <div class="card-footer text-right">
-                                    <a class="btn btn-info btn-action mr-1" data-toggle="tooltip"
-                                       title="Przypomnienie"><i class="ion-ios-alarm-outline"></i></a>
-                                    <a th:href="${'/editevent/' + eventDTO.getId()}"
-                                       class="btn btn-primary btn-action mr-1" data-toggle="tooltip"
-                                       title="Edytuj"><i class="ion ion-edit"></i></a>
-                                    <a th:href="${'/delete/' + eventDTO.getId()}"
-                                       class="btn btn-danger btn-action" data-toggle="tooltip"
-                                       title="Usuń"><i class="ion ion-trash-b"></i></a>
-
-                                </div>
+                                    <div class="card-footer">
+                                        <button class="btn btn-primary">Zapisz</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>

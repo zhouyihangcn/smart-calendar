@@ -18,75 +18,76 @@
                     <div>Wydarzenia</div>
                 </h1>
                 <div class="section-body">
+                    <form th:object="${eventDTO}">
+                        <div class="row">
+                            <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
+                                <div class="card card-primary">
+                                    <div class="card-header">
+                                        <h4>Szczegóły wydarzenia</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="form-group col-12">
+                                                <label for="name">Nazwa wydarzenia</label>
+                                                <input id="name" type="text" class="form-control" name="name"
+                                                       th:value="${eventDTO.getName()}" readonly=''/>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-6">
+                                                <label for="event_start">Data rozpoczęcia</label>
+                                                <input id="event_start" type="datetime-local" class="form-control"
+                                                       name="event_start"
+                                                       th:value="${eventDTO.getEvent_start()}" readonly=''
+                                                       style="text-align: center"/>
+                                            </div>
+                                            <div class="form-group col-6">
+                                                <label for="event_finish">Data zakończenia</label>
+                                                <input id="event_finish" type="datetime-local" class="form-control"
+                                                       name="event_finish"
+                                                       th:value="${eventDTO.getEvent_finish()}" readonly=''
+                                                       style="text-align: center"/>
+                                            </div>
 
-                    <div class="row">
-                        <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
-                            <div class="card card-primary">
-
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="form-group col-12">
-                                            <label for="name">Nazwa wydarzenia</label>
-                                            <input id="name" type="text" class="form-control" name="name"
-                                                   th:value="${eventDTO.getName()}" readonly=''/>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-12">
+                                                <label for="description">Opis</label>
+                                                <textarea id="description" class="form-control"
+                                                          th:text="${eventDTO.getDescription()}" readonly=''></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-6">
+                                                <label for="category">Kategoria</label>
+                                                <input id="category" type="text" class="form-control" name="category"
+                                                       th:value="${eventDTO.getCategory()}" readonly=''
+                                                       style="text-align: center"/>
+                                            </div>
+                                            <div class="form-group col-6">
+                                                <label for="alert">Przypomnienia</label>
+                                                <input id="alert" type="text" class="form-control" name="alert"
+                                                       value="NIEAKTYWNE" readonly=''
+                                                       style="text-align: center"/>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="form-group col-6">
-                                            <label for="event_start">Data rozpoczęcia</label>
-                                            <input id="event_start" type="datetime-local" class="form-control"
-                                                   name="event_start"
-                                                   th:value="${eventDTO.getEvent_start()}" readonly=''
-                                                   style="text-align: center"/>
-                                        </div>
-                                        <div class="form-group col-6">
-                                            <label for="event_finish">Data zakończenia</label>
-                                            <input id="event_finish" type="datetime-local" class="form-control"
-                                                   name="event_finish"
-                                                   th:value="${eventDTO.getEvent_finish()}" readonly=''
-                                                   style="text-align: center"/>
-                                        </div>
+
+                                    <div class="card-footer text-right">
+                                        <a class="btn btn-info btn-action mr-1" data-toggle="tooltip"
+                                           title="Przypomnienie"><i class="ion-ios-alarm-outline"></i></a>
+                                        <a th:href="${'/editevent/' + eventDTO.getId()}"
+                                           class="btn btn-primary btn-action mr-1" data-toggle="tooltip"
+                                           title="Edytuj"><i class="ion ion-edit"></i></a>
+                                        <a th:href="${'/delete/' + eventDTO.getId()}"
+                                           class="btn btn-danger btn-action" data-toggle="tooltip"
+                                           title="Usuń"><i class="ion ion-trash-b"></i></a>
 
                                     </div>
-                                    <div class="row">
-                                        <div class="form-group col-12">
-                                            <label for="description">Opis</label>
-                                            <textarea id="description" type="text" class="form-control"
-                                                      name="description"
-                                                      th:value="${eventDTO.getDescription()}" readonly=''/>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-6">
-                                            <label for="category">Kategoria</label>
-                                            <input id="category" type="text" class="form-control" name="category"
-                                                   th:value="${eventDTO.getCategory()}" readonly=''
-                                                   style="text-align: center"/>
-                                        </div>
-                                        <div class="form-group col-6">
-                                            <label for="alert">Przypomnienia</label>
-                                            <input id="alert" type="text" class="form-control" name="alert"
-                                                   value="NIEAKTYWNE" readonly=''
-                                                   style="text-align: center"/>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="card-footer text-right">
-                                    <a class="btn btn-info btn-action mr-1" data-toggle="tooltip"
-                                       title="Przypomnienie"><i class="ion-ios-alarm-outline"></i></a>
-                                    <a th:href="${'/editevent/' + eventDTO.getId()}"
-                                       class="btn btn-primary btn-action mr-1" data-toggle="tooltip"
-                                       title="Edytuj"><i class="ion ion-edit"></i></a>
-                                    <a th:href="${'/delete/' + eventDTO.getId()}"
-                                       class="btn btn-danger btn-action" data-toggle="tooltip"
-                                       title="Usuń"><i class="ion ion-trash-b"></i></a>
-
                                 </div>
                             </div>
                         </div>
-                    </div>
-
+                    </form>
 
                     <div class="row">
                         <div class="col-12 col-md-12 col-lg-12">
@@ -108,12 +109,13 @@
 
                                             <tr th:each="event: ${eventList}">
                                                 <td th:text="${event.getName()}"></td>
-                                                <td type="datetime-local" th:text="${event.getEvent_start()}"></td>
-                                                <td type="datetime-local" th:text="${event.getEvent_finish()}"></td>
+                                                <td th:text="${event.getEvent_start()}"></td>
+                                                <td th:text="${event.getEvent_finish()}"></td>
                                                 <td th:text="${event.getCategory()}"></td>
                                                 <td><a th:href="${'/showevents/' + event.getId()}"
                                                        class="btn btn-action btn-info">Szczegóły</a></td>
-                                                <td><a class="btn btn-primary btn-action mr-1" data-toggle="tooltip"
+                                                <td><a th:href="${'/editevent/' + event.getId()}"
+                                                       class="btn btn-primary btn-action mr-1" data-toggle="tooltip"
                                                        title="Edytuj"><i class="ion ion-edit"></i></a>
                                                     <a th:href="${'/delete/' + event.getId()}"
                                                        class="btn btn-danger btn-action" data-toggle="tooltip"

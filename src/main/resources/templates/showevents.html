@@ -42,7 +42,7 @@
                                                 <td type="datetime-local" th:text="${event.getEvent_finish()}"></td>
                                                 <td th:text="${event.getCategory()}"></td>
                                                 <td><a th:href="${'/showevents/' + event.getId()}" class="btn btn-action btn-info">Szczegóły</a></td>
-                                                <td><a class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edytuj"><i class="ion ion-edit"></i></a>
+                                                <td><a th:href="${'/editevent/' + event.getId()}" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edytuj"><i class="ion ion-edit"></i></a>
                                                 <a th:href="${'/delete/' + event.getId()}" class="btn btn-danger btn-action" data-toggle="tooltip" title="Usuń"><i class="ion ion-trash-b"></i></a></td>
                                             </tr>
 
