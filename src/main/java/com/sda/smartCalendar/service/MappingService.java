@@ -7,6 +7,9 @@ import com.sda.smartCalendar.domain.model.Event;
 import com.sda.smartCalendar.domain.model.User;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 @Service
 public class MappingService {
 
@@ -17,19 +20,11 @@ public class MappingService {
         user.setLastName(userRegistrationDTO.getLastName());
         user.setPassword(userRegistrationDTO.getPassword());
         user.setProvider(userRegistrationDTO.getProvider());
+        user.setPhoneNumber(userRegistrationDTO.getPhoneNumber());
         return user;
     }
 
-    public UserRegistrationDTO map(User user){
-        UserRegistrationDTO userRegistrationDTO = new UserRegistrationDTO();
-        userRegistrationDTO.setEmail(user.getEmail());
-        userRegistrationDTO.setFirstName(user.getFirstName());
-        userRegistrationDTO.setLastName(user.getLastName());
-        userRegistrationDTO.setPassword(user.getPassword());
-        return userRegistrationDTO;
-    }
-
-    public Event map(EventDTO eventDTO){
+    public Event map (EventDTO eventDTO){
         Event event = new Event();
         event.setId(eventDTO.getId());
         event.setName(eventDTO.getName());
@@ -51,6 +46,17 @@ public class MappingService {
         eventDTO.setCategory(event.getCategory());
         eventDTO.setUser(event.getUser());
         return eventDTO;
+    }
+
+    public UserRegistrationDTO map(User user) {
+        UserRegistrationDTO userRegistrationDTO = new UserRegistrationDTO();
+        userRegistrationDTO.setEmail(user.getEmail());
+        userRegistrationDTO.setFirstName(user.getFirstName());
+        userRegistrationDTO.setLastName(user.getLastName());
+        userRegistrationDTO.setPassword(user.getPassword());
+        userRegistrationDTO.setProvider(user.getProvider());
+        userRegistrationDTO.setPhoneNumber(user.getPhoneNumber());
+        return userRegistrationDTO;
     }
 
 }

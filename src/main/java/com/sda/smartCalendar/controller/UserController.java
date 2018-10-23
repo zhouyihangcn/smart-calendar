@@ -26,6 +26,7 @@ import org.springframework.web.context.request.WebRequest;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.Calendar;
 import java.util.Locale;
 import java.security.Principal;
@@ -45,6 +46,15 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ApplicationEventPublisher eventPublisher;
+
+    @Autowired
+    private IUserService service;
+
+    @Autowired
+    private MessageSource messages;
 
     @RequestMapping(value = "/facebook", method = RequestMethod.GET)
     public String loginToFacebook(Model model) {
@@ -66,18 +76,21 @@ public class UserController {
         return "registration";
     }
 
+    @GetMapping("/logout")
+    public String logout() {
+        return "logout";
+    }
+
     @GetMapping("/index")
     public String showMainPage(Model model, Principal principal) {
         model.addAttribute("loggedInUser", userService.findByEmail(principal.getName()));
         return "index";
     }
 
-
     @GetMapping("/nopage")
     public String nopage() {
         return "nopage";
     }
-
 
     /**
      * If we can't find a user/email combination
@@ -87,7 +100,6 @@ public class UserController {
         model.addAttribute("loginError", true);
         return "login";
     }
-
     //?
     @ModelAttribute("loggedInUser")
     public void secureUser(Model model) {
@@ -95,18 +107,9 @@ public class UserController {
         User user = userRepository.findByEmail(auth.getName());
         model.addAttribute("loggedInUser", user);
     }
-
-    @Autowired
-    ApplicationEventPublisher eventPublisher;
-
-    @Autowired
-    private IUserService service;
-
-    @Autowired
-    private MessageSource messages;
-
     @PostMapping("/registration")
-    public String registerUser(@ModelAttribute("userRegistrationDTO") @Valid UserRegistrationDTO userRegistrationDTO, BindingResult bindingResult, WebRequest request) {
+    public String registerUser(@ModelAttribute("userRegistrationDTO") @Valid UserRegistrationDTO userRegistrationDTO,
+                               BindingResult bindingResult, WebRequest request) {
 
         if (bindingResult.hasErrors()) {
             return "registration";
@@ -148,5 +151,36 @@ public class UserController {
     @GetMapping("/badUser")
     public String badUser() {
         return "badUser";
+    }
+
+    @GetMapping("/profile")
+    public String showProfie(Model model, Principal principal){
+        model.addAttribute("userProfile",userService.findUserByEmail(principal.getName()));
+        return "profile";
+    }
+
+    @GetMapping("/editUserProfile")
+    public String editUserProfile(Model model, Principal principal, @RequestParam("typedFields") String typedFields){
+
+        if (typedFields.equals("firstName")) {
+            model.addAttribute("userProfile", userService.findUserByEmail(principal.getName()));
+            model.addAttribute("userField", "firstName");
+        }
+        if (typedFields.equals("lastName")) {
+            model.addAttribute("userProfile", userService.findUserByEmail(principal.getName()));
+            model.addAttribute("userField", "lastName");
+        }
+        if (typedFields.equals("phoneNumber")) {
+            model.addAttribute("userProfile", userService.findUserByEmail(principal.getName()));
+            model.addAttribute("userField", "phoneNumber");
+        }
+        return "editProfile";
+    }
+
+    @PostMapping("/editUserProfile")
+    public String updateUserProfile(Model model, Principal principal, UserRegistrationDTO userRegistrationDTO) {
+        model.addAttribute("userProfile", userRegistrationDTO);
+        userService.editProfile(userRegistrationDTO, principal);
+        return "redirect:/profile";
     }
 }

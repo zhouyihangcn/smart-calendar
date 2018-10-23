@@ -47,5 +47,7 @@ public class UserRegistrationDTO {
 
     @AssertTrue(message = "Nie wyraziłeś zgody")
     private Boolean terms;
+
+    private String phoneNumber;
 }
 

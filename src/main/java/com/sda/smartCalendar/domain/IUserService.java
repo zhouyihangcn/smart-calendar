@@ -18,4 +18,5 @@ public interface IUserService {
 
     VerificationToken getVerificationToken(String VerificationToken);
 
+    User findUserByEmail(String email);
 }
