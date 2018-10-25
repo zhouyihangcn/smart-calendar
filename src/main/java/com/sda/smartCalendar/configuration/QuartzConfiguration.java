@@ -24,9 +24,6 @@ public class QuartzConfiguration {
         Properties properties = new Properties();
         Map<String, String> props = new HashMap<>();
 
-props.put("spring.quartz.job-store-type", "jdbc");
-        props.put("spring.quartz.properties.org.quartz.threadPool.threadCount", "5");
-
         props.put("org.quartz.scheduler.instanceName", "myScheduler");
         props.put("org.quartz.threadPool.threadCount", "3");
         props.put("org.quartz.jobStore.class", "org.quartz.simpl.RAMJobStore");
