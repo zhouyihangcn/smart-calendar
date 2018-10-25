@@ -48,4 +48,12 @@ public class EventController {
         model.addAttribute("loggedInUser", userService.findByEmail(principal.getName()));
         return "showevents";
     }
+
+    @GetMapping("/calendar")
+    public String showCalendar(Model model, Principal principal) {
+        model.addAttribute("categories", Category.values());
+        model.addAttribute("eventList",eventService.getAllEventsByUser(principal.getName()));
+        model.addAttribute("loggedInUser", userService.findByEmail(principal.getName()));
+        return "calendar";
+    }
 }
