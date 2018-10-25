@@ -6,109 +6,109 @@
 <head th:replace="fragments::head"></head>
 
 <body>
-  <div id="app">
+<div id="app">
+
+
     <section class="section">
-      <div class="container mt-5">
-        <div class="row">
-          <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
-            <div class="login-brand">
-              SMART CALENDAR
-            </div>
+        <div class="container mt-5">
 
-<!--Do usuniecia-->
-            <!--<div th:if="${param.error != null}"-->
-                 <!--th:text="${session[SPRING_SECURITY_LAST_EXCEPTION]}">error</div>-->
-
-
-            <div class="card card-primary">
-              <div class="card-header"><h4>Login</h4></div>
-
-              <div class="card-body">
-                <form method="POST" th:action="@{/login}" class="needs-validation" novalidate="">
-                  <div class="form-group">
-                    <label for="email">Email</label>
-                    <input id="email" type="email" class="form-control" name="username" tabindex="1" autofocus="autofocus" required ='required'/>
-                    <div class="invalid-feedback">
-                      Please fill in your email
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="password" class="d-block">Hasło
-                      <div class="float-right">
-                        <a href="forgot.html">
-                          Zapomniałeś hasła?
-                        </a>
-                      </div>
-                    </label>
-                    <input id="password" type="password" class="form-control" name="password" tabindex="2" required='requred'/>
-                    <div class="invalid-feedback">
-                      Podaj hasło
-                    </div>
-                  </div>
-                  <p th:if="${loginError}" class="alert alert-danger">Nieprawidłowy email lub hasło</p>
-                  <div class="form-group">
-                    <div class="custom-control custom-checkbox">
-                      <input type="checkbox" name="remember" class="custom-control-input" tabindex="3" id="remember-me"/>
-                      <label class="custom-control-label" for="remember-me">Pamiętaj mnie</label>
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-block" tabindex="4">
-                      Login
-                    </button>
-                  </div>
-                </form>
-
-
-                <div class="form-group">
-                  <form action="/connect/facebook" method="POST" style="display: inline">
-                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-                    <input type="hidden" name="scope" value="public_profile,email" />
-                  <button type="submit" class="btn btn-block" style="background-color: #264483; color: #fff" tabindex="4">
-                    Facebook
-                  </button>
-                  </form>
+            <div th:if="${param.confirm}">
+                <div class="alert alert-info" style="text-align:center">
+                    Dziękujemy za rejestrację.
                 </div>
+            </div>
 
-                <div class="form-group">
-                  <form action="/connect/google" method="POST" style="display: inline">
-                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-                    <input type="hidden" name="scope" value="profile email" />
-                  <button type="submit" class="btn btn-danger btn-block" tabindex="4">
-                    Google+
-                  </button>
-                  </form>
+            <div class="row">
+                <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
+                    <div class="login-brand">
+                        SMART CALENDAR
+                    </div>
+
+                    <div class="card card-primary">
+                        <div class="card-header"><h4>Login</h4></div>
+
+                        <div class="card-body">
+                            <form method="POST" th:action="@{/login}" class="needs-validation" novalidate="">
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input id="email" type="email" class="form-control" name="username" tabindex="1"
+                                           autofocus="autofocus" required='required'/>
+                                    <div class="invalid-feedback">
+                                        Please fill in your email
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="password" class="d-block">Hasło
+                                        <div class="float-right">
+                                            <a href="forgot.html">
+                                                Zapomniałeś hasła?
+                                            </a>
+                                        </div>
+                                    </label>
+                                    <input id="password" type="password" class="form-control" name="password"
+                                           tabindex="2" required='requred'/>
+                                    <div class="invalid-feedback">
+                                        Podaj hasło
+                                    </div>
+                                </div>
+                                <p th:if="${loginError}" class="alert alert-danger">Nieprawidłowy email lub hasło</p>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-block" tabindex="4">
+                                        Login
+                                    </button>
+                                </div>
+                            </form>
+
+
+                            <div class="form-group">
+                                <form action="/connect/facebook" method="POST" style="display: inline">
+                                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                                    <input type="hidden" name="scope" value="public_profile,email"/>
+                                    <button type="submit" class="btn btn-block"
+                                            style="background-color: #264483; color: #fff" tabindex="4">
+                                        Facebook
+                                    </button>
+                                </form>
+                            </div>
+
+                            <div class="form-group">
+                                <form action="/connect/google" method="POST" style="display: inline">
+                                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                                    <input type="hidden" name="scope" value="profile email"/>
+                                    <button type="submit" class="btn btn-danger btn-block" tabindex="4">
+                                        Google+
+                                    </button>
+                                </form>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                    <div class="mt-5 text-muted text-center">
+                        Nie masz konta? <a href="registration.html">Zarejestruj się</a>
+                    </div>
+                    <div class="simple-footer">
+                        Copyright &copy; Smart Calendar 2018
+                    </div>
                 </div>
-
-
-              </div>
-
             </div>
-            <div class="mt-5 text-muted text-center">
-              Nie masz konta? <a href="registration.html">Zarejestruj się</a>
-            </div>
-            <div class="simple-footer">
-              Copyright &copy; Smart Calendar 2018
-            </div>
-          </div>
         </div>
-      </div>
     </section>
-  </div>
+</div>
 
-  <script src="/modules/jquery.min.js"></script>
-  <script src="/modules/popper.js"></script>
-  <script src="/modules/tooltip.js"></script>
-  <script src="/modules/bootstrap/js/bootstrap.min.js"></script>
-  <script src="/modules/nicescroll/jquery.nicescroll.min.js"></script>
-  <script src="/modules/moment.min.js"></script>
-  <script src="/modules/scroll-up-bar/dist/scroll-up-bar.min.js"></script>
-  <script src="/js/sa-functions.js"></script>
-  
-  <script src="/js/scripts.js"></script>
-  <script src="/js/custom.js"></script>
-  <script src="/js/demo.js"></script>
+<script src="/modules/jquery.min.js"></script>
+<script src="/modules/popper.js"></script>
+<script src="/modules/tooltip.js"></script>
+<script src="/modules/bootstrap/js/bootstrap.min.js"></script>
+<script src="/modules/nicescroll/jquery.nicescroll.min.js"></script>
+<script src="/modules/moment.min.js"></script>
+<script src="/modules/scroll-up-bar/dist/scroll-up-bar.min.js"></script>
+<script src="/js/sa-functions.js"></script>
+
+<script src="/js/scripts.js"></script>
+<script src="/js/custom.js"></script>
+<script src="/js/demo.js"></script>
 </body>
 </html>

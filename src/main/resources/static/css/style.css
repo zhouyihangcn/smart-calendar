@@ -593,7 +593,8 @@ body.sidebar-gone .main-content {
 	background-color: #28a745;
 }
 .alert.alert-info {
-	background-color: #17a2b8;
+	background-color: #eefff8;
+	color:#17a2b8;
 }
 .alert.alert-warning {
 	background-color: #ffc107;

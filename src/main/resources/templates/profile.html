@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<!-- Links head -->
+<head th:replace="fragments::head"></head>
+
+<body>
+<div id="app">
+    <section class="section">
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
+                    <div class="login-brand">
+                        SMART CALENDAR
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Profil użytkownika </h4>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <tr>
+                                        <td class="col-md-2">Imię </td>
+                                        <td class="col-md-3" th:text="${userProfile.getFirstName()}"></td>
+                                        <td><a th:href="${'/editUserProfile?typedFields=firstName'}"  class="btn btn-action btn-secondary">Edytuj</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-md-2">Nazwisko</td>
+                                        <td class="col-md-3" th:text="${userProfile.getLastName()}"></td>
+                                        <td><a th:href="${'/editUserProfile?typedFields=lastName'}" class="btn btn-action btn-secondary">Edytuj</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-md-2">Numer telefonu</td>
+                                        <td class="col-md-3" th:text="${userProfile.getPhoneNumber()}"></td>
+                                        <td><a th:href="${'/editUserProfile?typedFields=phoneNumber'}" class="btn btn-action btn-secondary">Edytuj</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-md-2">Adres mailowy do kontaktu</td>
+                                        <td class="col-md-3" th:text="${userProfile.getEmail()}"></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <a th:href="@{/index}">
+                            <button type="button" value="Wróć do strony głównej" class="btn btn-primary btn-block">
+                                Wróć do strony głównej
+                            </button>
+                        </a>
+                    </div>
+                    <div class="simple-footer">
+                        Copyright &copy; Smart Calendar 2018
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<script src="/modules/moment.min.js"></script>
+
+<script src="/modules/jquery.min.js"></script>
+<script src="/modules/popper.js"></script>
+<script src="/modules/tooltip.js"></script>
+<script src="/modules/bootstrap/js/bootstrap.min.js"></script>
+<script src="/modules/nicescroll/jquery.nicescroll.min.js"></script>
+<script src="/modules/scroll-up-bar/dist/scroll-up-bar.min.js"></script>
+<script src="/js/sa-functions.js"></script>
+<script src="/js/scripts.js"></script>
+<script src="/js/custom.js"></script>
+<script src="/js/demo.js"></script>
+
+</body>
+</html>

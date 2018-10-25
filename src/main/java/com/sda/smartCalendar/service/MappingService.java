@@ -7,6 +7,9 @@ import com.sda.smartCalendar.domain.model.Event;
 import com.sda.smartCalendar.domain.model.User;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 @Service
 public class MappingService {
 
@@ -17,20 +20,13 @@ public class MappingService {
         user.setLastName(userRegistrationDTO.getLastName());
         user.setPassword(userRegistrationDTO.getPassword());
         user.setProvider(userRegistrationDTO.getProvider());
+        user.setPhoneNumber(userRegistrationDTO.getPhoneNumber());
         return user;
     }
 
-    public UserDTO map(User user){
-        UserDTO userDTO = new UserDTO();
-        userDTO.setEmail(user.getEmail());
-        userDTO.setFirstName(user.getFirstName());
-        userDTO.setLastName(user.getLastName());
-        userDTO.setPassword(user.getPassword());
-        return userDTO;
-    }
-
-    public Event map(EventDTO eventDTO){
+    public Event map (EventDTO eventDTO){
         Event event = new Event();
+        event.setId(eventDTO.getId());
         event.setName(eventDTO.getName());
         event.setDescription(eventDTO.getDescription());
         event.setEvent_finish(eventDTO.getEvent_finish());
@@ -42,6 +38,7 @@ public class MappingService {
 
     public EventDTO map (Event event){
         EventDTO eventDTO = new EventDTO();
+        eventDTO.setId(event.getId());
         eventDTO.setName(event.getName());
         eventDTO.setDescription(event.getDescription());
         eventDTO.setEvent_finish(event.getEvent_finish());
@@ -49,6 +46,17 @@ public class MappingService {
         eventDTO.setCategory(event.getCategory());
         eventDTO.setUser(event.getUser());
         return eventDTO;
+    }
+
+    public UserRegistrationDTO map(User user) {
+        UserRegistrationDTO userRegistrationDTO = new UserRegistrationDTO();
+        userRegistrationDTO.setEmail(user.getEmail());
+        userRegistrationDTO.setFirstName(user.getFirstName());
+        userRegistrationDTO.setLastName(user.getLastName());
+        userRegistrationDTO.setPassword(user.getPassword());
+        userRegistrationDTO.setProvider(user.getProvider());
+        userRegistrationDTO.setPhoneNumber(user.getPhoneNumber());
+        return userRegistrationDTO;
     }
 
 }

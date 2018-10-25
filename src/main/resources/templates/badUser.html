@@ -1,36 +1,53 @@
-<html>
-<head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
-    <title th:text="#{label.badUser.title}">bad user</title>
-</head>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<!-- Links head -->
+<head th:replace="fragments::head"></head>
+
 <body>
-<div class="container">
-    <h1 class="alert alert-danger" th:text="${param.message[0]}">error</h1>
-    <br/>
-    <a class="btn btn-default" th:href="@{/registration.html}" th:text="#{label.form.loginSignUp}">signup</a>
+<div id="app">
+    <section class="section">
+        <div class="container mt-5">
+            <div th:if="${param.invalidToken}">
+                <div class="alert alert-danger" style="text-align:center">
+                    Nieważny token. Zarejestruj się ponownie.
+                </div>
+            </div>
+            <div th:if="${param.expired}">
+                <div class="alert alert-danger" style="text-align:center">
+                    Link aktywacyjny wygasł. Zarejestruj się ponownie.
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
+                    <div class="login-brand">
+                        SMART CALENDAR
+                    </div>
 
-    <div th:if="${param.expired[0]}">
-        <br/>
-        <h1 th:text="#{label.form.resendRegistrationToken}">resend</h1>
-        <button onclick="resendToken()">resend</button>
 
+                    <div class="page-search">
+                        <div class="mt-5 text-muted text-center">
+                            <a href="registration.html">Zarejestruj się.</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="simple-footer mt-5">
+                Copyright &copy; Smart Calendar 2018
+            </div>
+        </div>
+    </section>
+</div>
 
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-        <script th:inline="javascript">
-            var serverContext = [[@{/}]];
-
-                function resendToken(){
-                    var token = [[${param.token}]];
-                    $.get(serverContext + "user/resendRegistrationToken?token="+token, function(data){
-                        window.location.href = serverContext +"login?message=" + data.message;
-                    })
-                        .fail(function(data) {
-                            if(data.responseJSON.error.indexOf("MailError") > -1)
-                            {
-                                window.location.href = serverContext + "emailError.html";
-                            }
-                            else{
-                                window.location.href = serverContext + "login?message=" + data.responseJSON.message;
-                            }
-                        });
-                }
+<script src="/modules/jquery.min.js"></script>
+<script src="/modules/popper.js"></script>
+<script src="/modules/tooltip.js"></script>
+<script src="/modules/bootstrap/js/bootstrap.min.js"></script>
+<script src="/modules/nicescroll/jquery.nicescroll.min.js"></script>
+<script src="/modules/scroll-up-bar/dist/scroll-up-bar.min.js"></script>
+<script src="/js/sa-functions.js"></script>
+<script src="/js/scripts.js"></script>
+<script src="/js/custom.js"></script>
+<script src="/js/demo.js"></script>
+</body>
+</html>

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.security.Principal;
 import java.util.Comparator;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,5 +45,12 @@ public class EventService {
                 .collect(Collectors.toList());
     }
 
+    public void deleteEvent(UUID id) {
+        eventRepository.deleteEventById(id);
+    }
 
+    public EventDTO findEventByID(UUID id){
+        EventDTO eventDTO = mappingService.map(eventRepository.findEventById(id));
+        return eventDTO;
+    }
 }

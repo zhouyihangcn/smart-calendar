@@ -28,8 +28,8 @@
                                     <div class="table-responsive">
                                         <table class="table table-striped">
                                             <tr>
-                                                <th>Nazwa</th>
-                                                <th>Start</th>
+                                                <th>Nazwa wydarzenia</th>
+                                                <th>Początek</th>
                                                 <th>Koniec</th>
                                                 <th>Kategoria</th>
                                                 <th>Szczegóły</th>
@@ -41,10 +41,11 @@
                                                 <td type="datetime-local" th:text="${event.getEvent_start()}"></td>
                                                 <td type="datetime-local" th:text="${event.getEvent_finish()}"></td>
                                                 <td th:text="${event.getCategory()}"></td>
-                                                <td><a href="#" class="btn btn-action btn-info">Szczegóły</a></td>
-                                                <td><a class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edytuj"><i class="ion ion-edit"></i></a>
-                                                <a class="btn btn-danger btn-action" data-toggle="tooltip" title="Usuń"><i class="ion ion-trash-b"></i></a></td>
+                                                <td><a th:href="${'/showevents/' + event.getId()}" class="btn btn-action btn-info">Szczegóły</a></td>
+                                                <td><a th:href="${'/editevent/' + event.getId()}" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edytuj"><i class="ion ion-edit"></i></a>
+                                                <a th:href="${'/delete/' + event.getId()}" class="btn btn-danger btn-action" data-toggle="tooltip" title="Usuń"><i class="ion ion-trash-b"></i></a></td>
                                             </tr>
+
 
                                         </table>
                                     </div>

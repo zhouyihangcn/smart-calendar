@@ -40,7 +40,6 @@ public class ForwardHttpToHttpsConfiguration {
         connector.setPort(8080);
         connector.setSecure(false);
         connector.setRedirectPort(8081);
-
         return connector;
     }
 }

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<!-- Links head -->
+<head th:replace="fragments::head"></head>
+
+<body>
+<div id="app">
+    <div class="main-wrapper">
+
+        <head th:replace="fragments::navbar"></head>
+        <head th:replace="fragments::sidebar"></head>
+
+        <div class="main-content">
+            <section class="section">
+                <h1 class="section-header">
+                    <div>Wydarzenia</div>
+                </h1>
+                <div class="section-body">
+                    <div class="row">
+                        <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
+                            <div class="card card-primary">
+                                <form  th:action="${'/editevent/' + eventDTO.getId()}" method="post" th:object="${eventDTO}">
+                                <div class="card-header">
+                                    <h4>Edytuj wydarzenie</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="form-group col-12" th:classappend="${#fields.hasErrors('name')}? 'has-error':''">
+                                            <label for="name">Nazwa wydarzenia</label>
+                                            <input id="name" type="text" class="form-control" th:field="*{name}"
+                                                   th:value="${eventDTO.getName()}"/>
+                                            <div class="alert alert-danger"
+                                                 th:each="error : ${#fields.errors('name')}"
+                                                 th:text="${error}">Validation error
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-6">
+                                            <label for="event_start">Data rozpoczęcia</label>
+                                            <input id="event_start" type="datetime-local" class="form-control"
+                                                   name="event_start"
+                                                   th:value="${eventDTO.getEvent_start()}"
+                                                   style="text-align: center"/>
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label for="event_finish">Data zakończenia</label>
+                                            <input id="event_finish" type="datetime-local" class="form-control"
+                                                   name="event_finish"
+                                                   th:value="${eventDTO.getEvent_finish()}"
+                                                   style="text-align: center"/>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-12" th:classappend="${#fields.hasErrors('description')}? 'has-error':''">
+                                            <label for="description">Opis</label>
+                                            <textarea id="description" type="text" class="form-control"
+                                                      th:field="*{description}"
+                                                      th:value="${eventDTO.getDescription()}"></textarea>
+                                            <div class="alert alert-danger"
+                                                 th:each="error : ${#fields.errors('description')}"
+                                                 th:text="${error}">Validation error
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-6">
+                                            <label>Kategoria</label><select
+                                                class="form-control form-control-lg" th:field="*{category}">
+                                            <option th:value="${eventDTO.getName()}" selected="selected">Wybierz kategorię...</option>
+                                            <option th:each="aCategory : ${categories}"
+                                                    th:value="${aCategory}"
+                                                    th:text="${aCategory.getName()}">
+                                            </option>
+                                        </select>
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label for="alert">Przypomnienia</label>
+                                            <input id="alert" type="text" class="form-control" name="alert"
+                                                   value="NIEAKTYWNE"
+                                                   style="text-align: center"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                    <div class="card-footer">
+                                        <button class="btn btn-primary">Zapisz</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Footer -->
+        <footer th:replace="fragments::footer"></footer>
+
+    </div>
+</div>
+
+
+<script src="/modules/jquery.min.js"></script>
+<script src="/modules/popper.js"></script>
+<script src="/modules/tooltip.js"></script>
+<script src="/modules/bootstrap/js/bootstrap.min.js"></script>
+<script src="/modules/nicescroll/jquery.nicescroll.min.js"></script>
+<script src="/modules/scroll-up-bar/dist/scroll-up-bar.min.js"></script>
+<script src="/js/sa-functions.js"></script>
+
+<script src="/modules/chart.min.js"></script>
+<script src="/modules/summernote/summernote-lite.js"></script>
+
+<script src="/js/scripts.js"></script>
+<script src="/js/custom.js"></script>
+<script src="/js/demo.js"></script>
+
+</body>
+</html>

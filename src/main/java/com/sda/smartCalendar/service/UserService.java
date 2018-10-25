@@ -10,9 +10,11 @@ import com.sda.smartCalendar.domain.repository.UserRepository;
 import com.sda.smartCalendar.domain.repository.VerificationTokenRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.Arrays;
 
 @Service
@@ -46,9 +48,9 @@ public class UserService implements IUserService {
         return user;
     }
 
-    public UserDTO findByEmail(String email) {
-        UserDTO userDTO = mappingService.map(userRepository.findByEmail(email));
-        return userDTO;
+    public User findByEmail(String email) {
+        User user = userRepository.findByEmail(email);
+        return user;
     }
     @Override
     public User getUser(String verificationToken) {
@@ -72,11 +74,26 @@ public class UserService implements IUserService {
         tokenRepository.save(myToken);
     }
 
-    private boolean emailExist(String email) {
+    @Override
+    public User findUserByEmail(String email){
         User user = userRepository.findByEmail(email);
-        if (user != null) {
-            return true;
+        if (user == null) {
+            throw new UsernameNotFoundException("Invalid nick or password.");
         }
-        return false;
+        return user;
+    }
+    public void editProfile(UserRegistrationDTO userDTO, Principal principal) {
+        User user = userRepository.findByEmail(principal.getName());
+
+        if(userDTO.getFirstName() != null){
+            user.setFirstName(userDTO.getFirstName());
+        }
+        if(userDTO.getLastName() != null){
+            user.setLastName(userDTO.getLastName());
+        }
+        if(userDTO.getPhoneNumber() != null){
+            user.setPhoneNumber(userDTO.getPhoneNumber());
+        }
+        userRepository.save(user);
     }
 }
